@@ -7,12 +7,12 @@ $nome= addslashes($_POST['nome']);
 $sexo= $_POST['sexo'];
 $nascimento= $_POST['nascimento'];
 $rua= $_POST['rua'];
-$numero= addslashes($_POST['numero']);
+$numero= $_POST['numero'];
 $cidade= $_POST['cidade'];
 $estado= $_POST['estado'];
-$cpf= addslashes($_POST['cpf']);
+$cpf= $_POST['cpf'];
 $email= $_POST['email'];
-$senha= addslashes($_POST['senha']);
+$senha= $_POST['senha']; 
 
 $action = $_POST['action'];
 

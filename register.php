@@ -31,14 +31,14 @@ session_start();
     <form class="col s12">
       <div class="row">
         <div class="input-field col m12 s6">
-          <input id="nome" name="nome" type="text">
+          <input id="nome_registro" name="nome" type="text">
           <label>Nome Completo</label>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col m6 s12">
-          <select name="sexo" id="sexo">
+          <select name="sexo" id="genero_registro">
             <option value="" desabled selected>Selecione...</option>
             <option value="0">Masculino</option>
             <option value="1">Feminino</option>
@@ -47,7 +47,7 @@ session_start();
           <label>Gênero</label>
         </div>
         <div class="input-field col m6 s12">
-          <input type="text" class="datepicker" id="nascimento" name="nascimento" required placeholder="dd/mm/aaaa">
+          <input type="text" class="datepicker" id="data_nasc_registro" name="nascimento" required placeholder="dd/mm/aaaa">
           <label>Data de Nascimento</label>
         </div>
       </div>
@@ -55,22 +55,22 @@ session_start();
 
       <div class="row">
         <div class="input-field col m6 s6">
-          <input id="rua" name="rua" type="text">
+          <input id="rua_registro" name="rua" type="text">
           <label>Rua</label>
         </div>
         <div class="input-field col m6 s6">
-          <input id="numero" name="numero" type="number">
+          <input id="numero_registro" name="numero" type="number">
           <label>Número</label>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s6">
-          <input id="cidade" name="cidade" type="text">
+          <input id="cidade_registro" name="cidade" type="text">
           <label>Cidade</label>
         </div>
         <div class="input-field col m6 s12">
-          <select name="select_estado" id="estado">
+          <select name="select_estado" id="estado_registro">
             <option value="" disabled selected>Selecione...</option>
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
@@ -106,22 +106,22 @@ session_start();
 
       <div class="row">
         <div class="input-field col s6">
-          <input id="cpf" name="cpf" type="text" required placeholder="000.000.000.00">
+          <input id="cpf_registro" name="cpf" type="text" required placeholder="000.000.000.00">
           <label>CPF</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col m6 s6">
-          <input id="email" name="email" type="email">
+          <input id="email_registro" name="email" type="email">
           <label>E-mail</label>
         </div>
         <div class="input-field col m6 s6">
-          <input type="password" name="senha" id="senha">
+          <input type="password" name="senha" id="senha_registro">
           <label>Senha</label>
         </div>
       </div>
       <div class="modal-footer">
-        <button id="confirmar_dados" class="modal-action modal-close waves-effect waves-light btn green darken-3">Registrar<i class="fa fa-arrow-right"></i></button>
+        <button id="registrar_usuario" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar<i class="fa fa-arrow-right"></i></button>
       </div>
     </form>
   </div>
@@ -136,4 +136,73 @@ window.onload=function(){
       $('select').material_select();
   });
 }
+
+
+
+/*Joga tudo no banco de dados*/
+$('#registrar_usuario').click(function(e) {
+        e.preventDefault();
+
+        var nome_registro = $('#nome_registro').val();
+        var genero_registro = $('#genero_registro').val();
+        var data_nasc_registro = $('#data_nasc_registro').val();
+        var rua_registro = $('#rua_registro').val();
+        var numero_registro = $('#numero_registro').val();  
+        var cidade_registro = $('#cidade_registro').val();  
+        var estado_registro = $('#estado_registro').val();
+        var cpf_registro = $('#cpf_registro').val();
+        var email_registro = $('#email_registro').val();
+        var senha_registro = $('#senha_registro').val();
+
+        if(nome_registro == "" || genero_registro == "" || data_nasc_registro == "" || rua_registro == "" || numero_registro == "" || cidade_registro == "" || estado_registro == "" || cpf_registro == "" || email_registro =="" || senha_registro ==""){
+          alert('Preencha todos os campos que possuem *');
+        }else if(senha_registro.length < 6){
+          alert('Cadastre uma senha com mais de 6 digitos!');
+        } else {
+          $.ajax({
+            url: 'engine/controllers/usuario.php',
+            data : {
+              nome: nome_registro,
+              sexo : genero_registro,
+              nascimento: data_nasc_registro,
+              rua: rua_registro,
+              numero : numero_registro,
+              cidade: cidade_registro,
+              estado : estado_registro,
+              cpf : cpf_registro,
+              email : email_registro,
+              senha : senha_registro,
+
+              action: 'create'
+            },
+            success: function(data){
+              obj = JSON.parse(data);
+              if(obj.res === 'true'){
+                alert("Cadastro Realizado com Sucesso!");
+                window.location = "login.php";
+                /*O que isso faz?*/
+                $.ajax({
+                  url: 'engine/controllers/login.php',
+                  data : {
+                    email_login : email_registro,
+                    senha_login : senha_registro
+                  },
+                  success: function(data){
+                    obj = JSON.parse(data);
+                    if(obj.res === 'true'){
+                      location.reload();
+                    } else {
+                      alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+                    }
+                  },
+                  async: false,
+                  type : 'POST'
+                });
+              }
+            },
+            async: false,
+            type : 'POST'
+          });
+        }
+      });
 </script>

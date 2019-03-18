@@ -2,23 +2,23 @@
 
 	require_once "../config.php";
 
-	$matricula = addslashes($_POST['matricula_login']);
+	$email = addslashes($_POST['email_login']);
 	$senha = addslashes($_POST['senha_login']);
 	$res;
 
 	$Usuario = new Usuario();
-	$Usuario = $Usuario->ReadByMatricula($matricula);
+	$Usuario = $Usuario->Read_email($email);
 
 
 	if ($Usuario === NULL) {
 		$res = 'no_user_found';
 		session_destroy();
 	} else {
-		$verificaEmail = strcmp($matricula,$Usuario['matricula']);
+		$verificaEmail = strcmp($email,$Usuario['email']);
 		if ($verificaEmail === 0) {
 			$verificaSenha = password_verify($senha,$Usuario['senha']);
 			if ($verificaSenha) {
-				$_SESSION['id_usuario'] = $Usuario['id_usuario'];
+				$_SESSION['id'] = $Usuario['id'];
 				$_SESSION['nome'] = $Usuario['nome'];
 
 				$res = 'true';
@@ -34,7 +34,8 @@
 	}
 
 	$result['res'] = $res;
-	$result['id_usuario'] = $_SESSION['id_usuario'];
+	$result['id'] = $_SESSION['id'];
 
 	echo json_encode($result);
 ?>
+

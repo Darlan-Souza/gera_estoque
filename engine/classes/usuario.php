@@ -70,6 +70,17 @@
 			return json_encode($result);
 		}
 
+		public function Read_email($email){
+			$sql = "
+				SELECT * FROM usuario WHERE email = '$email' ";
+
+			$DB = new DB();
+			$DB->open();
+			$Data = $DB->fetchData($sql);
+			$DB->close();
+			return $Data[0];
+		}
+
 		public function Update(){
 			$sql = "
 				UPDATE usuario SET

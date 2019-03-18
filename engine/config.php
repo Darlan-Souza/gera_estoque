@@ -7,6 +7,5 @@ date_default_timezone_set('America/Sao_Paulo');
 
 require_once "bd/bd.php";
 require_once "classes/usuario.php";
-/*require_once "classes/foruns.php";
-require_once "classes/comentarios.php";*/
+require_once "classes/produto.php";
 ?>
