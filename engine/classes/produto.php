@@ -59,6 +59,32 @@
 			return $result;
 		}
 
+		public function ReadAll(){
+			$sql = "
+				SELECT *
+				FROM
+					produto
+				";
+
+			$DB = new DB();
+			$DB->open();
+			$Data = $DB->fetchData($sql);
+			$realData;
+			if($Data ==NULL){
+				$realData = $Data;
+			}
+			else{
+				foreach($Data as $itemData){
+					if(is_bool($itemData)) continue;
+					else{
+						$realData[] = $itemData;
+					}
+				}
+			}
+			$DB->close();
+			return $realData;
+		}
+
 		public function Delete(){
 			$sql = "DELETE FROM produto	WHERE id = '$this->id'";
 

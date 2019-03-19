@@ -50,7 +50,7 @@ session_start();
         <br>
         <div class="row">
           <div class="input-field col s12 m12 16">
-              <center><p class="margin right-align medium-small"><a href="register.php"class="btn">Registro</a></p>
+              <a href="register.php" class="waves-effect waves-light btn-small">Registro</a>
           </div>         
         </div>
       </form>

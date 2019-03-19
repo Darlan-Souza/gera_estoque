@@ -70,6 +70,19 @@
 			return json_encode($result);
 		}
 
+		public function Read($id) {
+			$sql = "
+				SELECT * FROM usuario WHERE id  = '$id'
+			";
+
+			$DB = new DB();
+			$DB->open();
+			$Data = $DB->fetchData($sql);
+
+			$DB->close();
+			return $Data[0];
+		}
+
 		public function Read_email($email){
 			$sql = "
 				SELECT * FROM usuario WHERE email = '$email' ";
@@ -86,7 +99,6 @@
 				UPDATE usuario SET
 
 					nome = '$this->nome',
-					sexo = '$this->sexo',
 					nascimento = '$this->nascimento',
 					rua = '$this->rua',
 					numero = '$this->numero',
@@ -94,7 +106,6 @@
 					estado = '$this->estado',
 					cpf = '$this->cpf',
 					email = '$this->email',
-					senha = '$this->senha',
 				WHERE id = '$this->id'
 				";
 
