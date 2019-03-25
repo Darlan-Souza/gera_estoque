@@ -2,26 +2,14 @@
 	class Usuario{
 		private $id;
 		private $nome;
-		private $sexo;
-		private $nascimento;
-		private $rua;
-		private $numero;
-		private $cidade;
-		private $estado;
 		private $cpf;
 		private $email;
 		private $senha;
 
 		//setters
-		public function SetValues($id, $nome, $sexo, $nascimento, $rua, $numero, $cidade, $estado, $cpf, $email, $senha){
+		public function SetValues($id, $nome, $cpf, $email, $senha){
 			$this->id = $id;
 			$this->nome = $nome;
-			$this->sexo = $sexo;
-			$this->nascimento = $nascimento;
-			$this->rua = $rua;
-			$this->numero = $numero;
-			$this->cidade = $cidade;
-			$this->estado = $estado;
 			$this->cpf = $cpf;
 			$this->email = $email;
 			$this->senha = $senha;
@@ -33,12 +21,6 @@
 					(
 						id,
 						nome,
-						sexo,
-						nascimento,
-						rua,
-						numero,
-						cidade,
-						estado,
 						cpf,
 						email,
 						senha
@@ -47,12 +29,6 @@
 					(
 						'$this->id',
 						'$this->nome',
-						'$this->sexo',
-						'$this->nascimento',
-						'$this->rua',
-						'$this->numero',
-						'$this->cidade',
-						'$this->estado',
 						'$this->cpf',
 						'$this->email',
 						'$this->senha'
@@ -99,11 +75,6 @@
 				UPDATE usuario SET
 
 					nome = '$this->nome',
-					nascimento = '$this->nascimento',
-					rua = '$this->rua',
-					numero = '$this->numero',
-					cidade = '$this->cidade',
-					estado = '$this->estado',
 					cpf = '$this->cpf',
 					email = '$this->email',
 				WHERE id = '$this->id'
@@ -148,12 +119,6 @@
 		function __construct(){
 			$this->id;
 			$this->nome;
-			$this->sexo;
-			$this->nascimento;
-			$this->rua;
-			$this->numero;
-			$this->cidade;
-			$this->estado;
 			$this->cpf;
 			$this->email;
 			$this->senha;
@@ -162,12 +127,6 @@
 		function __destruct(){
 			$this->id;
 			$this->nome;
-			$this->sexo;
-			$this->nascimento;
-			$this->rua;
-			$this->numero;
-			$this->cidade;
-			$this->estado;
 			$this->cpf;
 			$this->email;
 			$this->senha;

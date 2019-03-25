@@ -7,7 +7,16 @@ if($showerros) {
 
 session_start();
 // Inicia a sessão
+
+if(empty($_SESSION)){
+  ?>
+  <script>
+    document.location.href = 'login.php' ;
+  </script>
+  <?php
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,142 +31,119 @@ session_start();
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-
-  <?php require_once "engine/config.php"; 
-    $usuario = new Usuario();
-
-    //Read é uma função na classe usuario
-    $usuario = $usuario->Read($_SESSION['id']);
-    ?>
-
-    <div class="news" style="margin-top: -7em;">
-      <div class="container">
-          <div class="col-lg-12">
-            <br>
-            <br>
-            <br>      
-            <h3 class="center">Editar Dados</h3>
-          </div>
-
-          <div class="col-lg-12">
-            <form class="contact_form">
-              <div class="row">
-                <div class="col-md-12">
-                  <input type="text" class="contact_input" id="nome_registro" placeholder="Nome" value="<?php echo $usuario['nome']; ?>" required="required">
-                </div>
-
-                <div class="col-md-4 col-sd-12">
-                  <input type="text" class="contact_input" id="data_nasc_registro" placeholder="Data de Nascimento" value="<?php echo $usuario['nascimento']; ?>" required="required">
-                </div>
-
-                <div class="col-md-4 col-sd-12">
-                  <input type="text" class="contact_input" id="rua_registro" placeholder="Rua" value="<?php echo $usuario['rua']; ?>" required="required">
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="contact_input" id="numero_registro" placeholder="Numero" value="<?php echo $usuario['numero']; ?>" required="required">
-                </div>
-
-                <div class="col-md-8 col-sd-12">
-                  <input type="text" class="contact_input" id="cidade_registro" placeholder="Cidade" value="<?php echo $usuario['cidade']; ?>" required="required">
-                </div>
-
-                <div class="col-md-4 col-sd-12">
-                  <input type="text" class="contact_input" id="estado_registro" placeholder="Estado" value="<?php echo $usuario['estado']; ?>" required="required">
-                </div>
-
-                <div class="col-md-4 col-sd-12">
-                  <input type="text" class="contact_input" id="cpf_registro" placeholder="CPF" value="<?php echo $usuario['cpf']; ?>" required="required">
-                </div>
-
-                <div class="col-md-4 col-sd-12">
-                  <input type="text" class="contact_input" id="email_registro" placeholder="E-mail" value="<?php echo $usuario['email']; ?>" required="required">
-                </div>
-                <div class="col-md-12">
-                  <p class="text-center"><button type="button" class="btn btn-secondary" id="atualizar">Atualizar</button></p>
-                </div>
-              </div>
-            </form>
-          </div>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="index.php" class="brand-logo"><i class="material-icons">cloud</i>Estoque</a>
+      <ul class="right hide-on-med-and-down" id="sair">
+        <li><a href="engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid" style="min-height: 100vh;">
+    <div class="row">
+      <br>
+      <div class="col m12 s12">
+        <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="index.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
       </div>
     </div>
-  <footer >
+    <table class="responsive-table centered">
+      <thead style="background: #2980b9; color: #fff;">
+        <tr>
+          <th>Nome</th>
+          <th>Nome</th>
+          <th>Apagar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?php echo $_SESSION['nome']; ?></td>
+          <td><?php echo $_SESSION['ciadde']; ?></td>
+          <td><i class="fa fa-trash fa-lg"></i>Lixo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="footer-adm">
   </footer>
 
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+  <script src="../js/jquery.js"></script>
+  <script src="../js/jquerymask.min.js"></script>
+  <script src="../js/materialize.js"></script>
+  <script src="../js/drop_materialize.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/mbox-0.0.1.js"></script>
+  <script src="../js/toastr.min.js"></script>
 
-  </body>
+</body>
 </html>
-<script>
 
-  $('#atualizar').click(function(e) {
-        e.preventDefault();
+<script type="text/javascript">
 
-        var id = "<?php echo $_SESSION['id']; ?>";
-        var nome_registro = $('#nome_registro').val();
-        var data_nasc_registro = $('#data_nasc_registro').val();
-        var rua_registro = $('#rua_registro').val();
-        var numero_registro = $('#numero_registro').val();
-        var cidade_registro = $('#cidade_registro').val();
-        var estado_registro = $('#estado_registro').val();
-        var cpf_registro = $('#cpf_registro').val();
-        var email_registro = $('#email_registro').val();
+    //chamando o menu
+    $('#nav-menu').load('../menu.php?diretorio='+ 1 +'&nav_color=nav-adm');
 
-        if(nome_registro == "" || data_nasc_registro == "" || rua_registro == "" || numero_registro == "" || cidade_registro == "" || estado_registro == ""|| cpf_registro == ""|| email_registro == ""){
-          alert('Preencha todos os campos!');
+    $('.det').click(function(e) {
+      var id = $(this).attr('id');
+      window.location = "detalhes.php?id="+id;
+    });
+
+    $('.getout').click(function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/engine/controllers/logout.php',
+        data: {
+        },
+        success: function(data) {
+          if(data === 'kickme')
+            document.location.href = '../';
+          else
+            alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+        },
+        type: 'POST'
+      });
+    });
+
+
+    $('#pesquisar').click(function(e) {
+      e.preventDefault();
+      var tipo = $('#tipo').val();
+      if(tipo == 0){
+        var pesq = $('#pesq_nome').val();
+        if(pesq == ""){
+          return toastr.error('Preencha o campo de pesquisa!');
+        }else{
+          window.location = "pesquisa/pesq_acessibilidade.php?pesq="+pesq+"&tipo="+tipo;
+        }
+      }else if(tipo == 1){
+        var pesq = $('#campus_pesq').val();
+        window.location = "pesquisa/pesq_acessibilidade.php?pesq="+pesq+"&tipo="+tipo;
+      }else if(tipo == 2){
+        var pesq = $('#defici_pesq').val();
+        window.location = "pesquisa/pesq_acessibilidade.php?pesq="+pesq+"&tipo="+tipo;
+      }else if(tipo == 3){
+        var pesq = $('#user_pesq').val();
+        window.location = "pesquisa/pesq_acessibilidade.php?pesq="+pesq+"&tipo="+tipo;
+      }
+    });
+
+    $(".apagar").click(function(e) {
+      e.preventDefault();
+      var id = $(this).attr('id');
+      mbox.confirm('Deseja Excluir esta solicitação?', function(yes) {
+        if (!yes) {
+          return false;
         } else {
           $.ajax({
-            url: 'engine/controllers/usuario.php',
-            data : {
+            url: '../engine/controllers/acessibilidade_inclusao.php',
+            data: {
               id : id,
-              nome: nome_registro,
-              nascimento: data_nasc_registro,
-              rua : rua_registro,
-              numero: numero_registro,
-              cidade : cidade_registro,
-              estado: estado_registro,
-              cpf : cpf_registro,
-              email: email_registro,
-
-              action: 'update'
-            },
-            success: function(data){
-              if(data === 'true'){
-                alert("Dados atualizados com Sucesso!");
-                location.reload();
-              }
+              action: 'delete'
             },
             async: false,
-            type : 'POST'
+            type: 'POST'
           });
         }
       });
-
-  $('.sair').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-          url: 'engine/controllers/logout.php',
-          data: {
-
-          },
-          error: function() {
-            alert('Erro na conexão com o servidor. Tente novamente em alguns segundos.');
-          },
-          success: function(data) {
-            console.log(data);
-            if(data === 'kickme'){
-              document.location.href = 'index.php';
-            }
-
-            else{
-              alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
-            }
-          },
-
-          type: 'POST'
-        });
-      });
-</script>
+    });
+  </script>

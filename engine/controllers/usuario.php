@@ -4,12 +4,6 @@ require_once "../config.php";
 
 $id= $_POST['id'];
 $nome= addslashes($_POST['nome']);
-$sexo= $_POST['sexo'];
-$nascimento= $_POST['nascimento'];
-$rua= $_POST['rua'];
-$numero= $_POST['numero'];
-$cidade= $_POST['cidade'];
-$estado= $_POST['estado'];
 $cpf= $_POST['cpf'];
 $email= $_POST['email'];
 $senha= $_POST['senha']; 
@@ -17,13 +11,10 @@ $senha= $_POST['senha'];
 $action = $_POST['action'];
 
 $Item = new Usuario();
-$Item->SetValues($id, $nome, $sexo, $nascimento, $rua, $numero, $cidade, $estado, $cpf, $email, password_hash($senha, PASSWORD_DEFAULT));
+$Item->SetValues($id, $nome, $cpf, $email, password_hash($senha, PASSWORD_DEFAULT));
 
 switch($action){
 	case 'create':
-	// Executa ação em tempo aleatório entre 0 e 3 segundos
-	// e diminui a possibilidade de conflitos
-	sleep(rand(0,3));
 
 	$res = $Item->Create();
 	$res = json_decode($res);

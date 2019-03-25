@@ -7,6 +7,14 @@ if($showerros) {
 
 session_start();
 // Inicia a sessão
+
+if(empty($_SESSION)){
+  ?>
+  <script>
+    document.location.href = 'login.php' ;
+  </script>
+  <?php
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,34 +36,35 @@ session_start();
       <ul class="right hide-on-med-and-down" id="sair">
         <li><a href="engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
       </ul>
+      <a href="editar.php" class="right hide-on-med-and-down "><i class="large material-icons">account_circle</i>Usuário</a>
     </div>
   </nav>
 
   <div class="container">
     <div class="row">
-    <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Deposito</span>
-          <p>Insira no sistema os produtos que você adquiriu.</p>
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Deposito</span>
+            <p>Insira no sistema os produtos que você adquiriu.</p>
+          </div>
+          <div class="card-action">
+            <a href="inserir_produto.php">Inserir</a>
+          </div>
         </div>
-        <div class="card-action">
-          <a href="inserir_produto.php">Inserir</a>
+      </div>
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Consultar</span>
+            <p>Consulte no sistema os produtos que você possui.</p>
+          </div>
+          <div class="card-action">
+            <a href="consultar_produto.php">Consultar</a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Consultar</span>
-          <p>Consulte no sistema os produtos que você possui.</p>
-        </div>
-        <div class="card-action">
-          <a href="consultar_produto.php">Consultar</a>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
   <footer >
@@ -66,32 +75,32 @@ session_start();
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
 
-  </body>
+</body>
 </html>
 
 <script>
   $('.sair').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-          url: 'engine/controllers/logout.php',
-          data: {
+    e.preventDefault();
+    $.ajax({
+      url: 'engine/controllers/logout.php',
+      data: {
 
-          },
-          error: function() {
-            alert('Erro na conexão com o servidor. Tente novamente em alguns segundos.');
-          },
-          success: function(data) {
-            console.log(data);
-            if(data === 'kickme'){
-              document.location.href = 'index.php';
-            }
+      },
+      error: function() {
+        alert('Erro na conexão com o servidor. Tente novamente em alguns segundos.');
+      },
+      success: function(data) {
+        console.log(data);
+        if(data === 'kickme'){
+          window.location = "login.php";
+        }
 
-            else{
-              alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
-            }
-          },
+        else{
+          alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+        }
+      },
 
-          type: 'POST'
-        });
-      });
+      type: 'POST'
+    });
+  });
 </script>
