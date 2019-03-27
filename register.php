@@ -4,9 +4,6 @@ if($showerros) {
   ini_set("display_errors", $showerros);
   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 }
-/*<script src="js/materialize.min.js"></script> 
-uso o js para fazer o formulario subir quando clicado
-*/
 session_start();
 // Inicia a sessão
 
@@ -26,7 +23,7 @@ session_start();
 </head>
 
 <body ng-app="mainModule" ng-controller="mainController">  
-
+  <center><h5 style="font-weight: 600;">Registro de usuário</h5></center>
   <div class="row">
     <form class="col s12">
       <div class="row">
@@ -98,7 +95,7 @@ session_start();
           obj = JSON.parse(data);
           if(obj.res === 'true'){
             alert("Cadastro Realizado com Sucesso!");
-            window.location = 'login.php';
+            document.location.href = "login.php";
             /*O que isso faz?*/
             $.ajax({
               url: 'engine/controllers/login.php',
@@ -109,7 +106,7 @@ session_start();
               success: function(data){
                 obj = JSON.parse(data);
                 if(obj.res === 'true'){
-                  location.reload();
+                  window.location = 'login.php';
                 } else {
                   alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
                 }

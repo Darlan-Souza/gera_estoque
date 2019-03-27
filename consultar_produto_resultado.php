@@ -47,8 +47,9 @@
       </style>
     </head>
     <body>
-      <?php require_once "engine/config.php";?> 
-
+      <?php require_once "engine/config.php";
+      $pesq = $_GET['pesq'];
+      ?>
       <nav>
         <div class="nav-wrapper">
           <a href="index.php" class="brand-logo"><i class="material-icons">cloud</i>Estoque</a>
@@ -66,7 +67,7 @@
 
           <form class="col s12">
             <div class="input-field col m2 s5" id="solici_aberto">
-              <input placeholder="Pesquisar por..." id="pesq_nome" name="pesq_nome" type="text">
+              <input placeholder="Pesquisar por..." id="pesq_nome" type="text">
             </div>
 
             <div class="input-field col m1 s1">
@@ -74,6 +75,17 @@
             </div>
           </form>
         </div>
+
+        <?php 
+          $info = new Produto();
+            $info = $info->Pesq($_SESSION['id'], $pesq);
+
+            if(empty($info)){
+
+              echo '<h4>Nenhum dado encontrado!</h4>';
+            }else{
+        ?>
+
         <table class="responsive-table centered">
           <thead style="background: #2980b9; color: #fff;">
             <tr>
@@ -85,11 +97,7 @@
           </thead>
           <tbody>
             <?php 
-
-            $valores = new Produto();
-            $valores = $valores->ReadAll_fk($_SESSION['id']);
-
-            foreach($valores as $val) {
+            foreach($info as $val) {
 
               //passo o nome da variável e o nome da variável que esta no banco
 
@@ -109,17 +117,16 @@
                 <td class="det" id="<?php echo $val['id']; ?>"><?php echo $tipo_produto;?></td>
                 <td class="apagar" id="<?php echo $val['id']; ?>"><i class="fa fa-trash fa-lg"></i> </td>
               </tr>
-            <?php }?>
+            <?php } } ?>
           </tbody>
         </table>
       </div>
 
-      <script src="js/jquery.js"></script>
-      <script src="js/materialize.js"></script>
-
     </body>
     </html>
 
+    <script src="js/jquery.js"></script>
+    <script src="js/materialize.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $('.det').click(function(e) {
@@ -170,15 +177,17 @@
        });
 
 
-    $('#pesquisar').click(function(e) {
-      e.preventDefault();
-      var pesq = $('#pesq_nome').val();
-        if(pesq == ""){
-          return toastr.error('Preencha o campo de pesquisa!');
-        }else{
-          window.location = "consultar_produto_resultado.php?pesq="+pesq;
-        } 
+        $('#pesquisar').click(function(e) {
+          e.preventDefault();
+          var pesq = $('#pesq_nome').val();
+          if(pesq == ""){
+            return toastr.error('Preencha o campo de pesquisa!');
+          }else{
+            window.location = "consultar_produto_resultado.php?pesq="+pesq;
+          } 
+        });
       });
-    });
+
+
 
     </script>

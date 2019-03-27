@@ -43,27 +43,27 @@ if(empty($_SESSION)){
   <div class="container row m6">
    <h2 class="center title_responsivo">Editar Dados</h2>
    <?php require_once "engine/config.php";
-   $Func = new Usuario();
+   $Func = new Produto();
    $Func = $Func->Read($_SESSION['id']);
    ?>
 
    <br><br>
    <div class="row">
      <div class="input-field col m5 s12">
-       <input type="text" id="nome" name="nome" value="<?php echo $Func['nome']; ?>">
+       <input type="text" id="nome_produto" name="nome_produto" value="<?php echo $Func['id']; ?>">
        <label >Nome</label>
      </div>
    </div>
    <div class="row">
      <div class="input-field col m5 s12">
-       <input type="text" id="cpf" name="cpf" value="<?php echo $Func['cpf']; ?>">
-       <label >CPF</label>
+       <input type="number" id="quantidade" name="quantidade" value="<?php echo $Func['quantidade']; ?>">
+       <label >Quantidade</label>
      </div>
    </div>
    <div class="row">
      <div class="input-field col m5 s12">
-       <input type="email" id="email" name="email" required class="validate" value="<?php echo $Func['email']; ?>">
-       <label >E-mail</label>
+       <input type="text" id="tipo_produto" name="tipo_produto" value="<?php echo $Func['tipo_produto']; ?>">
+       <label >Tipo</label>
      </div>
    </div>
    <br>
@@ -72,44 +72,33 @@ if(empty($_SESSION)){
     <p class="center"><a class="waves-effect waves-light btn green darken-3" id="Salvar"><i class="fa fa-pencil"></i> Salvar Alterações </a></p>
   </div>
 </div>
-
-<footer class="footer-adm">
-</footer>
-
-<script src="../js/jquery.js"></script>
-<script src="../js/jquerymask.min.js"></script>
-<script src="../js/materialize.js"></script>
-<script src="../js/drop_materialize.js"></script>
-<script src="../js/timer.js"></script>
-<script src="../js/mbox-0.0.1.js"></script>
-<script src="../js/toastr.min.js"></script>
-
 </body>
 </html>
 
 <script src="js/jquery.js"></script>
 <script src="js/materialize.js"></script>
+
 <script type="text/javascript">
 
   $('#Salvar').click(function(e) {
     e.preventDefault();
     var id = '<?php echo $_SESSION['id']; ?>';
-    var nome = $('#nome').val();
-    var cpf = $('#cpf').val();
-    var email = $('#email').val();
+    var nome_produto = $('#nome_produto').val();
+    var quantidade = $('#quantidade').val();
+    var tipo_produto = $('#tipo_produto').val();
 
-    if (nome === "" || cpf === "" || email === ""){
+    if (nome_produto === "" || quantidade === "" || tipo_produto === ""){
       var $toastContent = $('<span>Preencha todos os campos!</span>');
       Materialize.toast($toastContent, 4000, 'rounded');
       return;
     }else{
       $.ajax({
-        url: 'engine/controllers/usuario.php',
+        url: 'engine/controllers/produto.php',
         data: {
           id : id,
-          nome : nome,
-          cpf : cpf,
-          email : email,
+          nome_produto : nome_produto,
+          quantidade : quantidade,
+          tipo_produto : tipo_produto,
 
           action: 'update'
         },

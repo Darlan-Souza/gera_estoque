@@ -47,8 +47,7 @@ class Produto{
 
 		nome_produto = '$this->nome_produto',
 		quantidade = '$this->quantidade',
-		tipo_produto = '$this->tipo_produto',
-		fk_usuario = '$this-> fk_usuario',
+		tipo_produto = '$this->tipo_produto'
 		WHERE id = '$this->id'
 		";
 
@@ -72,6 +71,34 @@ class Produto{
 		return $Data[0];
 	}
 
+	public function ReadAll_FK($id) {
+			$sql = "
+				SELECT *
+				FROM
+					produto AS t1
+				where fk_usuario = '$id'
+			";
+			
+			$DB = new DB();
+			$DB->open();
+			$Data = $DB->fetchData($sql);
+			$realData;
+			if($Data ==NULL){
+				$realData = $Data;
+			}
+			else{
+				
+				foreach($Data as $itemData){
+					if(is_bool($itemData)) continue;
+					else{
+						$realData[] = $itemData;	
+					}
+				}
+			}
+			$DB->close();
+			return $realData; 
+		}
+		
 	public function Read($id){
 			$sql = "
 				SELECT *
@@ -109,6 +136,30 @@ class Produto{
 		$DB->close();
 		return $realData;
 	}
+
+	public function Pesq($id, $pesq) {
+			$sql = "
+			SELECT * FROM produto AS t1
+				WHERE t1.nome LIKE '%$pesq%' AND fk_usuario = '$id'
+			";
+
+			$DB = new DB();
+			$DB->open();
+			$Data = $DB->fetchData($sql);
+			$realData;
+			if($Data ==NULL){
+				$realData = $Data;
+			}else{
+				foreach($Data as $itemData){
+					if(is_bool($itemData)) continue;
+					else{
+						$realData[] = $itemData;
+					}
+				}
+			}
+			$DB->close();
+			return $realData;
+		}
 
 	public function Delete(){
 		$sql = "DELETE FROM produto	WHERE id = '$this->id'";

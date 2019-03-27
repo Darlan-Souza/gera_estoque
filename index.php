@@ -80,27 +80,19 @@ if(empty($_SESSION)){
 
 <script>
   $('.sair').click(function(e) {
-    e.preventDefault();
-    $.ajax({
-      url: 'engine/controllers/logout.php',
-      data: {
+      e.preventDefault();
 
-      },
-      error: function() {
-        alert('Erro na conexão com o servidor. Tente novamente em alguns segundos.');
-      },
-      success: function(data) {
-        console.log(data);
-        if(data === 'kickme'){
-          window.location = "login.php";
-        }
-
-        else{
-          alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
-        }
-      },
-
-      type: 'POST'
+      $.ajax({
+        url: 'engine/controllers/logout.php',
+        data: {},
+        success: function(data) {
+          if(data === 'kickme'){
+            document.location.href = 'engine/controllers/login.php';
+          } else {
+            alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+          }
+        },
+        type: 'POST'
+      });
     });
-  });
 </script>

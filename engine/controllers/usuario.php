@@ -3,7 +3,7 @@
 require_once "../config.php";
 
 $id= $_POST['id'];
-$nome= addslashes($_POST['nome']);
+$nome= $_POST['nome'];
 $cpf= $_POST['cpf'];
 $email= $_POST['email'];
 $senha= $_POST['senha']; 

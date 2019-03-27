@@ -59,6 +59,17 @@
 			return $Data[0];
 		}
 
+		public function ReadAll(){
+			$sql = "SELECT *FROM usuario";
+			
+			$DB = new DB();
+			$DB->open();
+			$Data = $DB->fetchData($sql);
+
+			$DB->close();
+			return $Data[0];
+		}
+
 		public function Read_email($email){
 			$sql = "
 				SELECT * FROM usuario WHERE email = '$email' ";
@@ -73,10 +84,10 @@
 		public function Update(){
 			$sql = "
 				UPDATE usuario SET
-
 					nome = '$this->nome',
 					cpf = '$this->cpf',
-					email = '$this->email',
+					email = '$this->email'
+					
 				WHERE id = '$this->id'
 				";
 
