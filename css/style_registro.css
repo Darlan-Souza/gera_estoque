@@ -1,16 +1,3 @@
-html,
-
-body {
-  height: 100%;
-}
-
-html {
-  display: table;/*deixa no formato de card*/
-  margin: auto;
-}
-
-body {
-  display: table-cell;
-  vertical-align: middle; /*desce o card*/
-  background:  #ffffff;
+html,body {
+  height: 100vh;
 }

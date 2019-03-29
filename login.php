@@ -49,7 +49,7 @@ session_start();
         <br>
         <div class="row">
           <div class="input-field col s12 m12 16">
-            <a href="register.php" class="waves-effect waves-light btn-small">Registro</a>
+            <a href="usuario/register.php" class="waves-effect waves-light btn-small">Registro</a>
           </div>         
         </div>
       </form>

@@ -36,7 +36,7 @@ if(empty($_SESSION)){
       <ul class="right hide-on-med-and-down" id="sair">
         <li><a href="engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
       </ul>
-      <a href="editar.php" class="right hide-on-med-and-down "><i class="large material-icons">account_circle</i>Usuário</a>
+      <a href="usuario/editar.php" class="right hide-on-med-and-down "><i class="large material-icons">account_circle</i>Usuário</a>
     </div>
   </nav>
 
@@ -49,7 +49,7 @@ if(empty($_SESSION)){
             <p>Insira no sistema os produtos que você adquiriu.</p>
           </div>
           <div class="card-action">
-            <a href="inserir_produto.php">Inserir</a>
+            <a href="produto/inserir_produto.php">Inserir</a>
           </div>
         </div>
       </div>
@@ -60,20 +60,17 @@ if(empty($_SESSION)){
             <p>Consulte no sistema os produtos que você possui.</p>
           </div>
           <div class="card-action">
-            <a href="consultar_produto.php">Consultar</a>
+            <a href="produto/consultar_produto.php">Consultar</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <footer >
-  </footer>
-
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+  <script src="../js/materialize.js"></script>
+  <script src="../js/init.js"></script>
 
 </body>
 </html>
