@@ -3,15 +3,14 @@
 require_once "../config.php";
 
 $id= $_POST['id'];
-$nome= addslashes($_POST['nome']);
-$quantidade= $_POST['quantidade'];
-$tipo= $_POST['tipo']; 
-$fk_usuario= $_POST['fk_usuario']; 
+$nome= $_POST['nome'];
+$cnpj= $_POST['cnpj'];
+$email= $_POST['email'];
 
 $action = $_POST['action'];
 
-$Item = new Produto();
-$Item->SetValues($id, $nome, $quantidade, $tipo, $fk_usuario);
+$Item = new Fornecedor();
+$Item->SetValues($id, $nome, $cnpj, $email);
 
 switch($action){
 	case 'create':
@@ -25,9 +24,8 @@ switch($action){
 		$result['res'] = "false";
 	}
 
-	// $result['id_usuario'] = $res->{'lastId'};
 	$result['id'] = $res->{'lastId'};
-	
+
 	echo json_encode($result);
 	break;
 
@@ -52,5 +50,6 @@ switch($action){
 	}
 	echo $res;
 	break;
+
 }
 ?>

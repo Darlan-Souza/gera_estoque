@@ -47,14 +47,14 @@ session_start();
    $valores = new Produto();
    $valores = $valores->Read($id);
 
-   $nome_produto =  $valores['nome'];
+   $nome = $valores['nome'];
 
    $quantidade = $valores['quantidade'];
 
    switch ($valores['tipo']) {
-    case '0': $tipo_produto = "Caixa"; break;
-    case '1': $tipo_produto = "Unidade"; break;
-    case '2': $tipo_produto = "Outros"; break;
+    case '0': $tipo = "Caixa"; break;
+    case '1': $tipo = "Unidade"; break;
+    case '2': $tipo = "Outros"; break;
   }
   ?>
 
@@ -62,22 +62,28 @@ session_start();
   <div class="row">
 
    <div class="input-field col m6 s12">
-    <input type="text" id="nome_produto" name="nome_produto" value="<?php echo $nome_produto;?>">
-     <label ></label>
-   </div>
-   <div class="input-field col m6 s12">
-     <input type="number" id="quantidade" name="quantidade" value="<?php echo $quantidade;?>">
-     <label >Quantidade</label>
-   </div>
+    <input type="text" id="nome" name="nome" value="<?php echo $nome;?>">
+    <label ></label>
+  </div>
+  <div class="input-field col m6 s12">
+   <input type="number" id="quantidade" name="quantidade" value="<?php echo $quantidade;?>">
+   <label >Quantidade</label>
  </div>
- <div class="row">
-   <div class="input-field col m6 s12">
-     <input type="text" id="tipo_produto" name="tipo_produto" value="<?php echo $tipo_produto;?>">
-     <label >Tipo</label>
-   </div>
- </div>
- <br>
- <div class="input-field col m12 s12">
+</div>
+
+<div class="row">
+ <div class="input-field col m6 s12">
+  <select name="tipo" id="tipo">
+    <option value="" desabled selected><?php echo $tipo;?></option>
+    <option value="0">Caixa</option>
+    <option value="1">Unidade</option>
+    <option value="2">Outros</option>
+  </select>
+  <label>Tipo</label>
+</div>
+</div>
+<br>
+<div class="input-field col m12 s12">
   <p class="center"><a class="waves-effect waves-light btn green darken-3" id="Salvar"><i class="fa fa-pencil"></i> Salvar Alterações </a></p>
 </div>
 </div>
@@ -89,12 +95,24 @@ session_start();
 
 <script type="text/javascript">
 
+  window.onload=function(){
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  }
+
   $('#Salvar').click(function(e) {
     e.preventDefault();
-    var id = '<?php echo  $_GET['id']; ?>';
+    var id = '<?php echo  $_GET['id'];?>';
     var nome = $('#nome').val();
     var quantidade = $('#quantidade').val();
     var tipo = $('#tipo').val();
+
+    switch (tipo) {
+      case 'Caixa': tipo = 0;
+      case 'Unidade': tipo = 1;
+      case 'Outros': tipo = 2;
+    }
 
     if (nome === "" || quantidade === "" || tipo === ""){
       var $toastContent = $('<span>Preencha todos os campos!</span>');
@@ -114,7 +132,7 @@ session_start();
         success: function(data) {
           if(data === 'true'){
             Materialize.toast("Dados Atualizados.", 3000, "rounded", function(){
-              window.location.href = "../index.php";
+              window.location.href = "consultar_produto.php";
             });
           }else{
             var $toastContent = $('<span>Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.</span>');

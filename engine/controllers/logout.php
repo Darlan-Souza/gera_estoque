@@ -2,4 +2,5 @@
 
 	session_destroy();
 	
+	echo 'kickme';
 ?>

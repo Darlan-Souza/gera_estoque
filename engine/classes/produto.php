@@ -1,17 +1,17 @@
 <?php
 class Produto{
 	private $id;
-	private $nome_produto;
+	private $nome;
 	private $quantidade;
-	private $tipo_produto;
+	private $tipo;
 	private $fk_usuario;
 
 		//setters
-	public function SetValues($id, $nome_produto, $quantidade, $tipo_produto, $fk_usuario){
+	public function SetValues($id, $nome, $quantidade, $tipo, $fk_usuario){
 		$this->id = $id;
-		$this->nome_produto = $nome_produto;
+		$this->nome = $nome;
 		$this->quantidade = $quantidade;
-		$this->tipo_produto = $tipo_produto;
+		$this->tipo = $tipo;
 		$this->fk_usuario = $fk_usuario;
 	}
 
@@ -29,9 +29,9 @@ class Produto{
 		(
 		'$this->id',
 		'$this->fk_usuario',
-		'$this->nome_produto',
+		'$this->nome',
 		'$this->quantidade',
-		'$this->tipo_produto'
+		'$this->tipo'
 		);
 		";
 
@@ -45,9 +45,9 @@ class Produto{
 		$sql = "
 		UPDATE produto SET
 
-		nome_produto = '$this->nome_produto',
+		nome = '$this->nome',
 		quantidade = '$this->quantidade',
-		tipo_produto = '$this->tipo_produto'
+		tipo = '$this->tipo'
 		WHERE id = '$this->id'
 		";
 
@@ -173,17 +173,17 @@ class Produto{
 
 	function __construct(){
 		$this->id;
-		$this->nome_produto;
+		$this->nome;
 		$this->quantidade;
-		$this->tipo_produto;
+		$this->tipo;
 		$this->fk_usuario;
 	}
 
 	function __destruct(){
 		$this->id;
-		$this->nome_produto;
+		$this->nome;
 		$this->quantidade;
-		$this->tipo_produto;
+		$this->tipo;
 		$this->fk_usuario;
 	}
 };

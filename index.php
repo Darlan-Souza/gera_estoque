@@ -4,17 +4,9 @@ if($showerros) {
   ini_set("display_errors", $showerros);
   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 }
-
 session_start();
 // Inicia a sessão
 
-if(empty($_SESSION)){
-  ?>
-  <script>
-    document.location.href = 'login.php' ;
-  </script>
-  <?php
-}
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +25,8 @@ if(empty($_SESSION)){
   <nav>
     <div class="nav-wrapper">
       <a href="index.php" class="brand-logo"><i class="material-icons">cloud</i>Estoque</a>
-      <ul class="right hide-on-med-and-down" id="sair">
-        <li><a href="engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#" class="getout">Sair <i class="fa fa-sign-out"></i></a></li>
       </ul>
       <a href="usuario/editar.php" class="right hide-on-med-and-down "><i class="large material-icons">account_circle</i>Usuário</a>
     </div>
@@ -65,31 +57,45 @@ if(empty($_SESSION)){
         </div>
       </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Fornecedor</span>
+            <p>Insira no sistema os seus fornecedores.</p>
+          </div>
+          <div class="card-action">
+            <a href="fornecedor/inserir_fornecedor.php">Inserir</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!--  Scripts-->
+  </div>
+</body>
+</html>
+
+
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../js/materialize.js"></script>
   <script src="../js/init.js"></script>
 
-</body>
-</html>
-
 <script>
-  $('.sair').click(function(e) {
-      e.preventDefault();
 
-      $.ajax({
-        url: 'engine/controllers/logout.php',
-        data: {},
-        success: function(data) {
-          if(data === 'kickme'){
-            document.location.href = 'engine/controllers/login.php';
-          } else {
-            alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
-          }
-        },
-        type: 'POST'
-      });
+ $('.getout').click(function(e) {
+    e.preventDefault();
+
+    $.ajax({
+      url: 'engine/controllers/logout.php',
+      data: {},
+      success: function(data) {
+        if(data === 'kickme'){
+          document.location.href = 'login.php';
+        } else {
+          alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+        }
+      },
+      type: 'POST'
     });
+  });
 </script>

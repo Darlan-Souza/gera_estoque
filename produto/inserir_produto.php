@@ -63,6 +63,25 @@ session_start();
             <input id="quantidade_produto" name="quantidade_produto" type="number">
             <label>Quantidade</label>
           </div>
+          <div class="input-field col m6 s12">
+            <select name="fornecedor_produto" id="fornecedor_produto">
+              <option value="" desabled selected>Selecione...</option>              
+              <?php 
+              $info = new Fornecedor();
+              $info = $info->ReadAll();
+
+              if(empty($info)){
+                echo 'Nenhum fornecedor encontado!';
+              }else{
+                foreach($info as $item){
+                  $fornecedor = $item['nome'];
+                }
+              }
+              ?>
+              <option><?php echo $fornecedor; ?></option>
+            </select>
+            <label>Fornecedor</label>
+          </div>
         </div>
 
         <div class="modal-footer">
@@ -101,9 +120,9 @@ session_start();
         url: '../engine/controllers/produto.php',
         data : {
           fk_usuario : id_usuario,
-          nome_produto: nome_produto,
+          nome: nome_produto,
           quantidade : quantidade_produto,
-          tipo_produto: tipo_produto,
+          tipo: tipo_produto,
 
           action: 'create'
         },

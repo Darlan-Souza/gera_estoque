@@ -24,7 +24,7 @@ session_start();
 
 <body>  
   <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper" style="background: #2bbbad;">
       <a href="../index.php" class="brand-logo"><i class="material-icons">cloud</i>Estoque</a>
       <ul class="right hide-on-med-and-down" id="sair">
         <li><a href="../engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
@@ -37,7 +37,7 @@ session_start();
     <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
   </div>
 
-  <center><h5 style="font-weight: 600;">Registro de usuário</h5></center>
+  <center><h5 style="font-weight: 600;">Registro de fornecedor</h5></center>
   <br>
   <div class="container">
     <div class="row">
@@ -49,18 +49,14 @@ session_start();
           </div>
 
           <div class="input-field col m6 s12">
-            <input id="cpf_registro" name="cpf" type="text" required placeholder="000.000.000.00">
-            <label>CPF</label>
+            <input id="cnpj_registro" name="cnpj" type="text" required placeholder="000.000.000.00">
+            <label>CNPJ</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col m6 s12">
             <input id="email_registro" name="email" type="email">
             <label>E-mail</label>
-          </div>
-          <div class="input-field col m6 s12">
-            <input type="password" name="senha" id="senha_registro">
-            <label>Senha</label>
           </div>
         </div>
 
@@ -87,29 +83,25 @@ session_start();
     });
   }
 
-  $('#cpf_registro').mask('999.999.999-99');
+  $('#cnpj_registro').mask('999.999.999-99');
 
   /*Joga tudo no banco de dados*/
   $('#registrar_usuario').click(function(e) {
     e.preventDefault();
 
     var nome_registro = $('#nome_registro').val();
-    var cpf_registro = $('#cpf_registro').val();
+    var cnpj_registro = $('#cnpj_registro').val();
     var email_registro = $('#email_registro').val();
-    var senha_registro = $('#senha_registro').val();
 
-    if(nome_registro == "" || cpf_registro == "" || email_registro == "" || senha_registro == ""){
+    if(nome_registro == "" || cnpj_registro == "" || email_registro == ""){
       alert('Preencha todos os campos!');
-    }else if(senha_registro.length < 6){
-      alert('Cadastre uma senha com mais de 6 digitos!');
     } else {
       $.ajax({
-        url: '../engine/controllers/usuario.php',
+        url: '../engine/controllers/fornecedor.php',
         data : {
           nome: nome_registro,
-          cpf : cpf_registro,
+          cnpj : cnpj_registro,
           email : email_registro,
-          senha : senha_registro,
 
           action: 'create'
         },
@@ -117,7 +109,7 @@ session_start();
           obj = JSON.parse(data);
           if(obj.res === 'true'){
             alert("Cadastro Realizado com Sucesso!");
-            document.location.href = "../login.php";
+            document.location.href = "../index.php";
           }
         },
         async: false,

@@ -99,7 +99,6 @@
               //passo o nome da variável e o nome da variável que esta no banco
 
               $nome_produto = $val['nome'];
-
               $quantidade = $val['quantidade'];
 
               switch ($val['tipo']) {
