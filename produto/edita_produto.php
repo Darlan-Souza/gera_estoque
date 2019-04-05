@@ -1,92 +1,132 @@
-<?php
-$showerros = true;
-if($showerros) {
-  ini_set("display_errors", $showerros);
-  error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
-}
-session_start();
-// Inicia a sessão
+    <?php
+    $showerros = true;
+    if($showerros) {
+      ini_set("display_errors", $showerros);
+      error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+    }
 
-?>
+    session_start();
+    // Inicia a sessão
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Estoque</title>
+    if(empty($_SESSION)){
+      ?>
+      <script>
+        document.location.href = '../login.php' ;
+      </script>
+      <?php
+    }
+    ?>
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="../css/style_registro.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <title>Estoque</title>
 
-<body>  
-  <nav>
-    <div class="nav-wrapper">
-      <a href="../index.php" class="brand-logo"><i class="material-icons">cloud</i>Estoque</a>
-      <ul class="right hide-on-med-and-down" id="sair">
-        <li><a href="../engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
-      </ul>
-      <a href="../usuario/editar.php" class="right hide-on-med-and-down "><i class="large material-icons">account_circle</i>Usuário</a>
+      <!-- CSS  -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    </head>
+
+    <body>  
+      <nav style="background:#2980b9 ;">
+        <div class="nav-wrapper">
+          <ul class="hide-on-med-and-down">
+            <li><a href="../index.php" class="brand-logo"><i class="material-icons">cloud</i>Estoque</a></li>
+          </ul>
+          <ul class="right hide-on-med-and-down getout">
+            <li><a href="../engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
+          </ul>
+          <ul class=" right hide-on-med-and-down">
+            <li><a href="usuario/editar.php"><i class="large material-icons">account_circle</i></a>
+            </ul>
+          </div>
+        </nav>
+        <br>
+        <div class="col m12 s12">
+          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consultar_produto.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
+        </div>
+
+        <center><h5 style="font-weight: 600;">Editar Dados do Produto</h5></center>
+        <br>
+
+        <div class="container">
+         <?php require_once "../engine/config.php";
+
+         $id = $_GET['id'];
+         $valores = new Produto();
+         $valores = $valores->Read($id);
+
+         $nome = $valores['nome'];
+         $quantidade = $valores['quantidade'];
+         $custo = $valores['valor'];
+         $fk = $valores['fk_fornecedor'];
+
+         switch ($valores['tipo']) {
+          case '0': $tipo = "Caixa"; break;
+          case '1': $tipo = "Unidade"; break;
+          case '2': $tipo = "Outros"; break;
+        }
+
+        ?>
+
+        <br><br>
+        <div class="row">
+          <div class="input-field col m6 s12">
+            <input type="text" id="nome" name="nome" value="<?php echo $nome;?>">
+            <label ></label>
+          </div>
+          <div class="input-field col m6 s12">
+           <input type="text" id="quantidade" name="quantidade" value="<?php echo $quantidade;?>">
+           <label >Quantidade</label>
+         </div>
+       </div>
+
+       <div class="row">
+         <div class="input-field col m6 s12">
+          <select name="tipo" id="tipo">
+            <option value="" desabled selected><?php echo $tipo;?></option>
+            <option value="0">Caixa</option>
+            <option value="1">Unidade</option>
+            <option value="2">Outros</option>
+          </select>
+          <label>Tipo</label>
+        </div>
+        <div class="input-field col m6 s12">
+         <input type="text" id="valor_produto" name="valor_produto" value="<?php echo $custo;?>">
+         <label >Valor R$</label>
+       </div>
+     </div>
+
+     <div class="row">
+      <div class="input-field col m6 s12">
+        <select name="fornecedor" id="fornecedor">
+          <?php
+          require_once "../engine/config.php";
+          $info = new Fornecedor();
+          $info = $info->ReadSelect();
+
+          $info = new Fornecedor();
+          $info = $info->ReadAll();
+
+          foreach ($info as $todos){ 
+            ?>
+
+            <option value="<?php echo $todos['id'];?>" <?php if($todos['id'] == $fk){echo 'selected';} ?>><?php echo  $todos['nome'];?></option>';
+
+          <?php }
+          ?>
+        </select>
+        <label>Fornecedor</label>
+      </div>
     </div>
-  </nav>
-  <br>
-  <div class="col m12 s12">
-    <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consultar_produto.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
+    <br>
+    <div class="input-field col m12 s12">
+      <p class="center"><a class="waves-effect waves-light btn green darken-3" id="Salvar"><i class="fa fa-pencil"></i> Salvar Alterações </a></p>
+    </div> 
   </div>
-
-  <center><h5 style="font-weight: 600;">Editar Dados do Produto</h5></center>
-  <br>
-
-  <div class="container">
-   <?php require_once "../engine/config.php";
-
-   $id = $_GET['id'];
-   $valores = new Produto();
-   $valores = $valores->Read($id);
-
-   $nome = $valores['nome'];
-
-   $quantidade = $valores['quantidade'];
-
-   switch ($valores['tipo']) {
-    case '0': $tipo = "Caixa"; break;
-    case '1': $tipo = "Unidade"; break;
-    case '2': $tipo = "Outros"; break;
-  }
-  ?>
-
-  <br><br>
-  <div class="row">
-
-   <div class="input-field col m6 s12">
-    <input type="text" id="nome" name="nome" value="<?php echo $nome;?>">
-    <label ></label>
-  </div>
-  <div class="input-field col m6 s12">
-   <input type="number" id="quantidade" name="quantidade" value="<?php echo $quantidade;?>">
-   <label >Quantidade</label>
- </div>
-</div>
-
-<div class="row">
- <div class="input-field col m6 s12">
-  <select name="tipo" id="tipo">
-    <option value="" desabled selected><?php echo $tipo;?></option>
-    <option value="0">Caixa</option>
-    <option value="1">Unidade</option>
-    <option value="2">Outros</option>
-  </select>
-  <label>Tipo</label>
-</div>
-</div>
-<br>
-<div class="input-field col m12 s12">
-  <p class="center"><a class="waves-effect waves-light btn green darken-3" id="Salvar"><i class="fa fa-pencil"></i> Salvar Alterações </a></p>
-</div>
-</div>
 </body>
 </html>
 
@@ -101,12 +141,31 @@ session_start();
     });
   }
 
+  $('.getout').click(function(e) {
+    e.preventDefault();
+
+    $.ajax({
+      url: '../engine/controllers/logout.php',
+      data: {},
+      success: function(data) {
+        if(data === 'kickme'){
+          document.location.href = '../login.php';
+        } else {
+          alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+        }
+      },
+      type: 'POST'
+    });
+  });
+
   $('#Salvar').click(function(e) {
     e.preventDefault();
     var id = '<?php echo  $_GET['id'];?>';
     var nome = $('#nome').val();
     var quantidade = $('#quantidade').val();
     var tipo = $('#tipo').val();
+    var fornecedor = $('#fornecedor').val();
+    var valor_produto = $('#valor_produto').val();
 
     switch (tipo) {
       case 'Caixa': tipo = 0;
@@ -114,7 +173,7 @@ session_start();
       case 'Outros': tipo = 2;
     }
 
-    if (nome === "" || quantidade === "" || tipo === ""){
+    if (nome === "" || quantidade === "" || tipo === ""|| valor_produto ===""|| fornecedor=== ""){
       var $toastContent = $('<span>Preencha todos os campos!</span>');
       Materialize.toast($toastContent, 4000, 'rounded');
       return;
@@ -126,6 +185,8 @@ session_start();
           nome : nome,
           quantidade : quantidade,
           tipo : tipo,
+          valor: valor_produto,
+          fk_fornecedor: fornecedor,
 
           action: 'update'
         },

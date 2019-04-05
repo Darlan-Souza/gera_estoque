@@ -12,7 +12,7 @@ html {
 body {
   display: table-cell;
   vertical-align: middle; /*desce o card*/
-  background:  #4ECDC4;
+  background:  rgba(189, 195, 199,1.5);
 }
 
 #login-page{

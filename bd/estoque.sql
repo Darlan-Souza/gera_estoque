@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 03/04/2019 18:01:36
+ Date: 05/04/2019 19:30:44
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,14 @@ CREATE TABLE `fornecedor`  (
   `cnpj` int(255) NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of fornecedor
+-- ----------------------------
+INSERT INTO `fornecedor` VALUES (1, 'teste', 123, '1123');
+INSERT INTO `fornecedor` VALUES (2, 'teste2', 12, '1212');
+INSERT INTO `fornecedor` VALUES (3, 'Darlan Souza Silva ', 141435, 'darlan.sgf@gmail.com');
 
 -- ----------------------------
 -- Table structure for produto
@@ -38,13 +45,22 @@ CREATE TABLE `produto`  (
   `nome` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `quantidade` int(11) NOT NULL,
   `tipo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `valor` float(255, 0) NOT NULL,
   `fk_usuario` int(11) NOT NULL,
-  `fk_produto` int(11) NOT NULL,
+  `fk_fornecedor` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `produto_usuario`(`fk_usuario`) USING BTREE,
-  INDEX `fornecedor_produto`(`fk_produto`) USING BTREE,
-  CONSTRAINT `fornecedor_produto` FOREIGN KEY (`fk_produto`) REFERENCES `fornecedor` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+  INDEX `fornecedor_produto`(`fk_fornecedor`) USING BTREE,
+  CONSTRAINT `fornecedor_produto` FOREIGN KEY (`fk_fornecedor`) REFERENCES `fornecedor` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of produto
+-- ----------------------------
+INSERT INTO `produto` VALUES (1, 'teste', 1, '1', 0, 0, 1);
+INSERT INTO `produto` VALUES (2, 'teste2', 12, '2', 0, 0, 2);
+INSERT INTO `produto` VALUES (6, 'catuaba1', 101, '0', 12, 17, 2);
+INSERT INTO `produto` VALUES (7, 'teste aiaia', 12111, '1', 121, 17, 3);
 
 -- ----------------------------
 -- Table structure for usuario

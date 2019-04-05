@@ -5,13 +5,15 @@ require_once "../config.php";
 $id= $_POST['id'];
 $nome= addslashes($_POST['nome']);
 $quantidade= $_POST['quantidade'];
-$tipo= $_POST['tipo']; 
+$tipo= $_POST['tipo'];
+$valor= $_POST['valor'];  
 $fk_usuario= $_POST['fk_usuario']; 
+$fk_fornecedor= $_POST['fk_fornecedor']; 
 
 $action = $_POST['action'];
 
 $Item = new Produto();
-$Item->SetValues($id, $nome, $quantidade, $tipo, $fk_usuario);
+$Item->SetValues($id, $nome, $quantidade, $tipo, $valor, $fk_usuario, $fk_fornecedor);
 
 switch($action){
 	case 'create':

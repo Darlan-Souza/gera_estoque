@@ -40,7 +40,7 @@
             <li><a href="../engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
           </ul>
           <ul class=" right hide-on-med-and-down">
-            <li><a href="usuario/editar.php"><i class="large material-icons">account_circle</i></a>
+            <li><a href="../usuario/editar.php"><i class="large material-icons">account_circle</i></a>
             </ul>
           </div>
         </nav>
@@ -95,50 +95,15 @@
           });
         }
 
-        $('#cnpj_registro').mask('999.999.999-99');
-
-        /*Joga tudo no banco de dados*/
-        $('#registrar_usuario').click(function(e) {
-          e.preventDefault();
-
-          var nome_registro = $('#nome_registro').val();
-          var cnpj_registro = $('#cnpj_registro').val();
-          var email_registro = $('#email_registro').val();
-
-          if(nome_registro == "" || cnpj_registro == "" || email_registro == ""){
-            alert('Preencha todos os campos!');
-          } else {
-            $.ajax({
-              url: '../engine/controllers/fornecedor.php',
-              data : {
-                nome: nome_registro,
-                cnpj : cnpj_registro,
-                email : email_registro,
-
-                action: 'create'
-              },
-              success: function(data){
-                obj = JSON.parse(data);
-                if(obj.res === 'true'){
-                  alert("Cadastro Realizado com Sucesso!");
-                  document.location.href = "../index.php";
-                }
-              },
-              async: false,
-              type : 'POST'
-            });
-          }
-        });  
-        
         $('.getout').click(function(e) {
           e.preventDefault();
 
           $.ajax({
-            url: '../engine/controllers/logout.php',
+            url: 'engine/controllers/logout.php',
             data: {},
             success: function(data) {
               if(data === 'kickme'){
-                document.location.href = '../login.php';
+                document.location.href = 'login.php';
               } else {
                 alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
               }

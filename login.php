@@ -19,12 +19,14 @@ session_start();
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style_login.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style_login.css" type="text/css" rel="stylesheet"/>
 </head>
 
-<body ng-app="mainModule" ng-controller="mainController">
+<body>
   <div id="login-page" class="row">
-    <div class="col s12 z-depth-6 card-panel">
+    <div class="col s12 z-depth-6 card-panel" style="background: rgba(52, 73, 94,.8); border-radius: 1em;">
+
+      <p class="center" style="color: #fff; font-size: 2em; height: 0.5em; font-weight: 700;">Login</p>
       <form class="login-form">
         <div class="row">
         </div>
@@ -44,12 +46,12 @@ session_start();
         </div>
 
         <div class="modal-footer">
-          <center><button id="login_usuario" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Entrar<i class="fa fa-arrow-right"></i></button></center>
+          <center><button id="login_usuario" class="btn waves-effect waves-light" type="submit" name="action">Entrar<i class="material-icons right">send</i></button></center>
         </div>
         <br>
         <div class="row">
-          <div class="input-field col s12 m12 16">
-            <a href="usuario/register.php" class="waves-effect waves-light btn-small">Registro</a>
+          <div>
+            <a href="usuario/register.php" class="waves-effect waves-light btn-small"><p style="font-weight: 500; font-size: 1em; background: rgba(127, 140, 141,.5); padding: 7px; border-radius: 10px; color: #fff;">Registro</p></a>
           </div>         
         </div>
       </form>
