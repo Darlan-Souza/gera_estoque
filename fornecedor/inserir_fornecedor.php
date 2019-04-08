@@ -46,7 +46,7 @@
         </nav>
         <br>
         <div class="col m12 s12">
-          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
+          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consulta_fornecedor.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
         </div>
 
         <center><h5 style="font-weight: 600;">Registro de fornecedor</h5></center>

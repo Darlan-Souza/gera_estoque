@@ -173,6 +173,33 @@ class Produto{
 		return $realData;
 	}
 
+	public function ReadSUM($id) {
+		$sql = "
+		SELECT SUM(valor) 
+		FROM produto
+		where fk_usuario = '$id' 
+		";
+
+		$DB = new DB();
+		$DB->open();
+		$Data = $DB->fetchData($sql);
+		$realData;
+		if($Data ==NULL){
+			$realData = $Data;
+		}
+		else{
+
+			foreach($Data as $itemData){
+				if(is_bool($itemData)) continue;
+				else{
+					$realData[] = $itemData;	
+				}
+			}
+		}
+		$DB->close();
+		return $realData; 
+	}
+
 	public function Pesq($id, $pesq) {
 		$sql = "
 		SELECT * FROM produto AS t1

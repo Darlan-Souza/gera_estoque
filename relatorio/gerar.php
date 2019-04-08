@@ -25,9 +25,25 @@
       <title>Estoque</title>
 
       <!-- CSS  -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <style type="text/css">
+        @media screen and (min-width: 600px) {
+          #tipo_tabela{
+            width: 400px;
+          }
+        }
+        .detalhes_usuario:hover .det{
+          background: rgba(0, 169, 161, 0.3);
+        }
+        .apagar:hover{
+          cursor:pointer;
+          color: #fff;
+          background-color: rgba(187, 36, 52, 0.9);
+        }
+      </style>
     </head>
 
     <body>  
@@ -49,33 +65,37 @@
           <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
         </div>
 
-        <center><h5 style="font-weight: 600;">Registro de fornecedor</h5></center>
+        <center><h5 style="font-weight: 600;">Gastos totais</h5></center>
         <br>
         <div class="container">
-          <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col m6 s12">
-                  <input id="nome_registro" name="nome" type="text">
-                  <label>Nome Completo</label>
-                </div>
 
-                <div class="input-field col m6 s12">
-                  <input id="cnpj_registro" name="cnpj" type="text" required placeholder="000.000.000.00">
-                  <label>CNPJ</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col m6 s12">
-                  <input id="email_registro" name="email" type="email">
-                  <label>E-mail</label>
-                </div>
-              </div>
+          <table class="responsive-table centered">
+            <thead style="background: #2980b9; color: #fff;">
+              <tr>
+                <th>Valor Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+              require_once "../engine/config.php";
 
-              <div class="modal-footer">
-                <center><button id="registrar_usuario" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar<i class="fa fa-arrow-right"></i></button></center>
-              </div>
-            </form>
+              $valores = new Produto();
+              $valores = $valores->ReadAll($_SESSION['id']);
+
+              //Faço um foreach e pega apenas os valores do banco e incremento
+              foreach ($valores as $valores) {
+                $valor = $valores['valor'];
+                $soma += $valor;
+              }
+              ?>
+              <tr class="detalhes_usuario">
+                <td class="det"><?php echo 'R$ ',$soma,',00'; ?></td>
+              </tr> 
+            </tbody>
+          </table>
+          <br><br>
+          <div class="col m12 s12">
+            <center><a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../pdf/exemploPdf.php" style="color: black; background: #f06595; margin: .5em;"><i class="fas fa-file-pdf"></i> PDF</a></center>
           </div>
         </div>
 
@@ -99,11 +119,11 @@
           e.preventDefault();
 
           $.ajax({
-            url: 'engine/controllers/logout.php',
+            url: '../engine/controllers/logout.php',
             data: {},
             success: function(data) {
               if(data === 'kickme'){
-                document.location.href = 'login.php';
+                document.location.href = '../login.php';
               } else {
                 alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
               }
