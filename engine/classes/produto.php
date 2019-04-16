@@ -68,6 +68,20 @@ class Produto{
 		return $result;
 	}
 
+	public function Update_fornecedor(){
+		$sql = "
+		UPDATE produto SET
+		fk_fornecedor = ''
+		WHERE fk_fornecedor = '$this->fk_fornecedor'
+		";
+
+		$DB = new DB();
+		$DB->open();
+		$result =$DB->query($sql);
+		$DB->close();
+		return $result;
+	}
+
 	public function Read_fk($id) {
 		$sql = "
 		SELECT * FROM produto WHERE fk_usuario  = '$id'
@@ -200,10 +214,10 @@ class Produto{
 		return $realData; 
 	}
 
-	public function Pesq($id, $pesq) {
+	public function Pesq($id, $pesq, $tipo) {
 		$sql = "
-		SELECT * FROM produto AS t1
-		WHERE t1.nome LIKE '%$pesq%' AND fk_usuario = '$id'
+		SELECT * FROM produto AS t2
+		WHERE $tipo LIKE '%$pesq%' AND fk_usuario = '$id'
 		";
 
 		$DB = new DB();

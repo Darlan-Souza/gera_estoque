@@ -54,8 +54,30 @@ switch($action){
 	break;
 
 
+	case 'verificaCPF':
+	$Usuario = new Usuario();
+	$Usuario = $Usuario->ReadAll();
+	foreach ($Usuario as $user) {if ($user['cpf'] == $cpf) {$res = 'true'; break; } }
+	echo $res;
+	break;
+
+	case 'esqueci_senha':
+	$Usuario = new Usuario();
+	$Usuario = $Usuario->ReadAll();
+
+	foreach ($Usuario as $user) {
+		if ($user['email'] == $email && $user['cpf'] == $cpf) {
+			$res = 'true';
+			break;
+		}
+	}
+
+	echo $res;
+	break;
+
 	case 'updateSenha':
-	$res = $Item->UpdateSenha();
+	$res = $Item->UpdateSenha($email);
+
 	if($res === NULL){
 		$res= 'true';
 	}else{
@@ -64,18 +86,41 @@ switch($action){
 	echo $res;
 	break;
 
+	case 'verificaEmail':
+	$Usuario = new Usuario();
+	$Usuario = $Usuario->ReadAll();
+
+
+	foreach ($Usuario as $user) {if ($user['email'] == $email) {$res = 'true'; break; } }
+
+	echo $res;
+	break;
+
 	case 'cripto':
-		$Usuario = new Usuario();
-  		$Usuario = $Usuario->Read($_POST['id']);
-  		$senha_temp = $Usuario['senha'];
+	$Usuario = new Usuario();
+	$Usuario = $Usuario->Read($_POST['id']);
+	$senha_temp = $Usuario['senha'];
 
-		if (password_verify($senha, $senha_temp)) {
-			$res = "true";
-		} else {
-			$res = "false";
-		}
-		echo $res;
+	if (password_verify($senha, $senha_temp)) {
+		$res = "true";
+	} else {
+		$res = "false";
+	}
+	echo $res;
 
+	break;
+
+	case 'buscar_cpf':
+	$Usuario = new Usuario();
+	$Usuario = $Usuario->Read_cpf($cpf);
+	if (!$Usuario) {
+		$res['res'] = 'false';
+	} else {
+		$res['res'] = 'true';
+		$res['id'] = $Usuario['id'];
+		$res['nome'] = $Usuario['nome'];
+	}
+	echo json_encode($res);
 	break;
 }
 ?>

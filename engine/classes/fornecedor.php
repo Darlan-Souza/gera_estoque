@@ -33,26 +33,34 @@ class Fornecedor{
 
 		$DB = new DB();
 		$DB->open();
-			// $result = $DB->query($sql);
-			// $DB->close();
-			// return $result;
 		$result['result'] = $DB->query($sql);
 		$result['lastId'] = $DB->lastId();
 		$DB->close();
 		return json_encode($result);
 	}
 
-	public function Read($id) {
+	public function Pesq($id, $pesq) {
 		$sql = "
-		SELECT * FROM fornecedor WHERE id  = '$id'
+		SELECT * FROM fornecedor AS t1
+		WHERE t1.nome LIKE '%$pesq%' AND id = '$id'
 		";
 
 		$DB = new DB();
 		$DB->open();
 		$Data = $DB->fetchData($sql);
-
+		$realData;
+		if($Data ==NULL){
+			$realData = $Data;
+		}else{
+			foreach($Data as $itemData){
+				if(is_bool($itemData)) continue;
+				else{
+					$realData[] = $itemData;
+				}
+			}
+		}
 		$DB->close();
-		return $Data[0];
+		return $realData;
 	}
 
 	public function ReadAll(){
@@ -75,6 +83,47 @@ class Fornecedor{
 		}
 		$DB->close();
 		return $realData;
+	}
+
+	public function Read($id) {
+		$sql = "
+		SELECT * FROM fornecedor WHERE id  = '$id'
+		";
+
+		$DB = new DB();
+		$DB->open();
+		$Data = $DB->fetchData($sql);
+
+		$DB->close();
+		return $Data[0];
+	}
+
+	public function ReadAll_FK($id) {
+		$sql = "
+		SELECT *
+		FROM
+		fornecedor
+		where fk_usuario = '$id' 
+		";
+
+		$DB = new DB();
+		$DB->open();
+		$Data = $DB->fetchData($sql);
+		$realData;
+		if($Data ==NULL){
+			$realData = $Data;
+		}
+		else{
+
+			foreach($Data as $itemData){
+				if(is_bool($itemData)) continue;
+				else{
+					$realData[] = $itemData;	
+				}
+			}
+		}
+		$DB->close();
+		return $realData; 
 	}
 
 	public function ReadSelect(){
@@ -136,7 +185,6 @@ class Fornecedor{
 		$this->nome;
 		$this->cnpj;
 		$this->email;
-		$this->senha;
 	}
 
 	function __destruct(){
@@ -144,7 +192,6 @@ class Fornecedor{
 		$this->nome;
 		$this->cnpj;
 		$this->email;
-		$this->senha;
 	}
 };
 ?>

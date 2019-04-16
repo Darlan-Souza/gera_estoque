@@ -25,9 +25,11 @@
       <title>Estoque</title>
 
       <!-- CSS  -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
     </head>
 
     <body>  
@@ -46,7 +48,7 @@
         </nav>
         <br>
         <div class="col m12 s12">
-          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consulta_fornecedor.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
+          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consulta_fornecedor.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
         </div>
 
         <center><h5 style="font-weight: 600;">Registro de fornecedor</h5></center>
@@ -57,18 +59,18 @@
               <div class="row">
                 <div class="input-field col m6 s12">
                   <input id="nome_registro" name="nome" type="text">
-                  <label>Nome Completo</label>
+                  <label>Nome Completo*</label>
                 </div>
 
                 <div class="input-field col m6 s12">
                   <input id="cnpj_registro" name="cnpj" type="text" required placeholder="000.000.000.00">
-                  <label>CNPJ</label>
+                  <label>CNPJ*</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col m6 s12">
                   <input id="email_registro" name="email" type="email">
-                  <label>E-mail</label>
+                  <label>E-mail*</label>
                 </div>
               </div>
 
@@ -85,6 +87,7 @@
       <script src="../js/jquery.js"></script>
       <script src="../js/materialize.js"></script>
       <script src="../js/jquerymask.min.js"></script>
+      <script src="../js/mbox-0.0.1.js"></script>
 
       <script>
 
@@ -105,8 +108,8 @@
           var cnpj_registro = $('#cnpj_registro').val();
           var email_registro = $('#email_registro').val();
 
-          if(nome_registro == "" || cnpj_registro == "" || email_registro == ""){
-            alert('Preencha todos os campos!');
+          if(nome_registro === "" || cnpj_registro === "" || email_registro === ""){
+            return mbox.alert('Preencha todos os campos com *');
           } else {
             $.ajax({
               url: '../engine/controllers/fornecedor.php',
@@ -120,8 +123,9 @@
               success: function(data){
                 obj = JSON.parse(data);
                 if(obj.res === 'true'){
-                  alert("Cadastro Realizado com Sucesso!");
-                  document.location.href = "../index.php";
+                  Materialize.toast("Cadastro Realizado com Sucesso!", 1500, "rounded", function(){
+                    window.location = "consulta_fornecedor.php"
+                  });
                 }
               },
               async: false,
@@ -140,7 +144,7 @@
               if(data === 'kickme'){
                 document.location.href = '../login.php';
               } else {
-                alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+                return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
               }
             },
             type: 'POST'

@@ -14,15 +14,17 @@
       <title>Estoque</title>
 
       <!-- CSS  -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style_registro.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
     </head>
 
     <body>  
       <br>
       <div class="col m12 s12">
-        <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
+         <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
       </div>
 
       <center><h5 style="font-weight: 600;">Registro de usuário</h5></center>
@@ -33,27 +35,27 @@
             <div class="row">
               <div class="input-field col m6 s12">
                 <input id="nome_registro" name="nome" type="text">
-                <label>Nome Completo</label>
+                <label>Nome Completo*</label>
               </div>
 
               <div class="input-field col m6 s12">
                 <input id="cpf_registro" name="cpf" type="text" required placeholder="000.000.000.00">
-                <label>CPF</label>
+                <label>CPF*</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col m6 s12">
                 <input id="email_registro" name="email" type="email">
-                <label>E-mail</label>
+                <label>E-mail*</label>
               </div>
               <div class="input-field col m6 s12">
                 <input type="password" name="senha" id="senha_registro">
-                <label>Senha</label>
+                <label>Senha*</label>
               </div>
             </div>
 
             <div class="modal-footer">
-              <center><button id="registrar_usuario" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar<i class="fa fa-arrow-right"></i></button></center>
+              <center><button id="registrar_usuario" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar <i class="fa fa-arrow-right"></i></button></center>
             </div>
           </form>
         </div>
@@ -65,6 +67,7 @@
     <script src="../js/jquery.js"></script>
     <script src="../js/materialize.js"></script>
     <script src="../js/jquerymask.min.js"></script>
+    <script src="../js/mbox-0.0.1.js"></script>
 
     <script>
 
@@ -87,9 +90,9 @@
         var senha_registro = $('#senha_registro').val();
 
         if(nome_registro == "" || cpf_registro == "" || email_registro == "" || senha_registro == ""){
-          alert('Preencha todos os campos!');
+          return mbox.alert('Preencha todos os campos que possuem *');
         }else if(senha_registro.length < 6){
-          alert('Cadastre uma senha com mais de 6 digitos!');
+          return mbox.alert('Cadastre uma senha com mais de 6 digitos!');
         } else {
           $.ajax({
             url: '../engine/controllers/usuario.php',
@@ -104,8 +107,9 @@
             success: function(data){
               obj = JSON.parse(data);
               if(obj.res === 'true'){
-                alert("Cadastro Realizado com Sucesso!");
-                document.location.href = "../login.php";
+                Materialize.toast("Cadastro Realizado com Sucesso!", 1500, "rounded", function(){
+                  window.location = "../login.php"                    
+                });
               }
             },
             async: false,

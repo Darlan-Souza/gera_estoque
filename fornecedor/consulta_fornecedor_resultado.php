@@ -29,6 +29,8 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
+
       <style type="text/css">
         @media screen and (min-width: 600px) {
           #tipo_tabela{
@@ -47,9 +49,6 @@
       </style>
     </head>
     <body>
-      <?php require_once "../engine/config.php";
-      $pesq = $_GET['pesq'];
-      ?>
       <nav style="background:#2980b9 ;">
         <div class="nav-wrapper">
           <ul class="hide-on-med-and-down">
@@ -68,7 +67,7 @@
           <div class="row">
             <br>
             <div class="col m12 s12">
-              <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
+              <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consulta_fornecedor.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
             </div>
 
             <form class="col s12">
@@ -82,13 +81,14 @@
             </form>
           </div>
 
-          <?php 
+          <?php
+          require_once "../engine/config.php";
+          $pesq = $_GET['pesq'];
+
           $info = new Fornecedor();
           $info = $info->Pesq($_SESSION['id'], $pesq);
 
-          var_dump($_SESSION['id']);
           if(empty($info)){
-
             echo '<center><h4>Nenhum dado encontrado!</h4></center>';
           }else{
             ?>
@@ -127,6 +127,8 @@
 
         <script src="../js/jquery.js"></script>
         <script src="../js/materialize.js"></script>
+        <script src="../js/mbox-0.0.1.js"></script>
+
         <script type="text/javascript">
           $(document).ready(function(){
             $('.det').click(function(e) {
@@ -144,7 +146,7 @@
                   if(data === 'kickme'){
                     document.location.href = '../login.php';
                   } else {
-                    alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+                    return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
                   }
                 },
                 type: 'POST'

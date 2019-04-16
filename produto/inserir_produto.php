@@ -24,9 +24,27 @@
       <title>Estoque</title>
 
       <!-- CSS  -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
+      <style type="text/css">
+        @media screen and (min-width: 600px) {
+          #tipo_tabela{
+            width: 400px;
+          }
+        }
+        .detalhes_usuario:hover .det{
+          background: rgba(0, 169, 161, 0.3);
+          cursor: pointer;
+        }
+        .apagar:hover{
+          cursor:pointer;
+          color: #fff;
+          background-color: rgba(187, 36, 52, 0.9);
+        }
+      </style>
     </head>
 
     <body>  
@@ -45,7 +63,7 @@
         </nav>
         <br>
         <div class="col m12 s12">
-          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
+          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consultar_produto.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
         </div>
 
         <center><h5 style="font-weight: 600;">Registro de produto</h5></center>
@@ -57,7 +75,7 @@
               <div class="row">
                 <div class="input-field col m6 s12">
                   <input id="nome_produto" name="nome_produto" type="text">
-                  <label>Nome Produto</label>
+                  <label>Nome Produto*</label>
                 </div>
                 <div class="input-field col m6 s12">
                   <select name="tipo_produto" id="tipo_produto">
@@ -66,18 +84,18 @@
                     <option value="1">Unidade</option>
                     <option value="2">Outros</option>
                   </select>
-                  <label>Tipo Produto</label>
+                  <label>Tipo Produto*</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col m6 s12">
                   <input id="quantidade_produto" name="quantidade_produto" type="text">
-                  <label>Quantidade</label>
+                  <label>Quantidade*</label>
                 </div>
 
                 <div class="input-field col m6 s12">
                   <input id="valor_produto" name="valor_produto" type="text">
-                  <label>Valor</label>
+                  <label>Valor R$*</label>
                 </div>
               </div>
               <div class="row">
@@ -97,7 +115,7 @@
                     <?php }
                     ?>
                   </select>
-                  <label>Fornecedor</label>
+                  <label>Fornecedor*</label>
                 </div>
               </div>
               <div class="modal-footer">
@@ -111,6 +129,7 @@
 
       <script src="../js/jquery.js"></script>
       <script src="../js/materialize.js"></script>
+      <script src="../js/mbox-0.0.1.js"></script>
 
       <script>
 
@@ -131,7 +150,7 @@
               if(data === 'kickme'){
                 document.location.href = '../login.php';
               } else {
-                alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+                return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
               }
             },
             type: 'POST'
@@ -149,7 +168,7 @@
           var valor_produto = $('#valor_produto').val();
 
           if(nome_produto == "" || quantidade_produto == "" || tipo_produto == ""|| fornecedor=="" || valor_produto==""){
-            alert('Preencha todos os campos que possuem *');
+            return mbox.alert('Preencha todos os campos que possuem *');
           }else {
             $.ajax({
               url: '../engine/controllers/produto.php',
@@ -166,8 +185,9 @@
               success: function(data){
                 obj = JSON.parse(data);
                 if(obj.res === 'true'){
-                  alert("Cadastro Realizado com Sucesso!");
-                  window.location = "../index.php";
+                  Materialize.toast("Cadastro Realizado com Sucesso!", 1500, "rounded", function(){
+                    window.location = "consultar_produto.php"                    
+                  });
                 }
               },
               async: false,

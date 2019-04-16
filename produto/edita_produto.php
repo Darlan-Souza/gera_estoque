@@ -25,9 +25,12 @@
       <title>Estoque</title>
 
       <!-- CSS  -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
+
     </head>
 
     <body>  
@@ -46,7 +49,7 @@
         </nav>
         <br>
         <div class="col m12 s12">
-          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consultar_produto.php" style="color: black; background: white; margin: .5em;"><i class="fa fa-arrow-left"></i> Voltar</a>
+          <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consultar_produto.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
         </div>
 
         <center><h5 style="font-weight: 600;">Editar Dados do Produto</h5></center>
@@ -76,7 +79,7 @@
         <div class="row">
           <div class="input-field col m6 s12">
             <input type="text" id="nome" name="nome" value="<?php echo $nome;?>">
-            <label ></label>
+            <label >Nome</label>
           </div>
           <div class="input-field col m6 s12">
            <input type="text" id="quantidade" name="quantidade" value="<?php echo $quantidade;?>">
@@ -110,7 +113,9 @@
 
           $info = new Fornecedor();
           $info = $info->ReadAll();
-
+          ?>
+          <option value="" desabled selected>Selecione...</option>
+          <?php
           foreach ($info as $todos){ 
             ?>
 
@@ -132,6 +137,8 @@
 
 <script src="../js/jquery.js"></script>
 <script src="../js/materialize.js"></script>
+<script src="../js/mbox-0.0.1.js"></script>
+
 
 <script type="text/javascript">
 
@@ -151,7 +158,7 @@
         if(data === 'kickme'){
           document.location.href = '../login.php';
         } else {
-          alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+          return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
         }
       },
       type: 'POST'
@@ -173,8 +180,8 @@
       case 'Outros': tipo = 2;
     }
 
-    if (nome === "" || quantidade === "" || tipo === ""|| valor_produto ===""|| fornecedor=== ""){
-      var $toastContent = $('<span>Preencha todos os campos!</span>');
+    if (nome === "" && quantidade === "" && tipo === ""&& valor_produto ===""&& fornecedor=== ""){
+      var $toastContent = $('<span>Preencha pelo menos um campo!</span>');
       Materialize.toast($toastContent, 4000, 'rounded');
       return;
     }else{
