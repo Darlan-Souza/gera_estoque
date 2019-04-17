@@ -82,6 +82,7 @@ class Produto{
 		return $result;
 	}
 
+<<<<<<< HEAD
 	public function ReadAll_Paginacao($inicio, $registros) {
 		$sql = "
 		SELECT * FROM produto LIMIT $inicio, $registros
@@ -95,6 +96,8 @@ class Produto{
 		return $Data;
 	}
 
+=======
+>>>>>>> master
 	public function Read_fk($id) {
 		$sql = "
 		SELECT * FROM produto WHERE fk_usuario  = '$id'

@@ -48,7 +48,11 @@
       </style>
     </head>
     <body>
+<<<<<<< HEAD
       <nav style="background:#2980b9;">
+=======
+      <nav style="background:#2980b9 ;">
+>>>>>>> master
         <div class="nav-wrapper">
           <ul class="hide-on-med-and-down">
             <li><a href="../index.php" class="brand-logo"><i class="material-icons">cloud</i>Estoque</a></li>
@@ -66,6 +70,7 @@
           <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
           <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="inserir_produto.php" style="color: black; background: #27ae60;"><i class="fas fa-plus"></i> Adicionar</a>
         </div>
+<<<<<<< HEAD
         
         <?php
         require_once "../engine/config.php";
@@ -90,6 +95,8 @@
         $Produto = $Produto->ReadAll_Paginacao($item, $item_por_pag);
 
         ?>
+=======
+>>>>>>> master
 
         <div class="container-fluid" style="min-height: 100vh;">
           <div class="row">
@@ -121,6 +128,7 @@
               <div class="input-field col m2 s5 hide" id="fornecedor_select">
                 <select id="fornecedor_pesq" name="fornecedor_pesq">
                   <?php
+<<<<<<< HEAD
                   require_once "../engine/config.php";
                   $info = new Fornecedor();
                   $info = $info->ReadSelect();
@@ -133,6 +141,20 @@
 
                   <?php }
                   ?>
+=======
+                    require_once "../engine/config.php";
+                    $info = new Fornecedor();
+                    $info = $info->ReadSelect();
+                    ?>
+                    <option value="" desabled selected>Selecione...</option>
+                    <?php 
+                    foreach ($info as $todos){ ?>
+
+                      <option value="<?php echo $todos['id'];?>"><?php echo $todos['nome'];?></option>';
+                      
+                    <?php }
+                    ?>
+>>>>>>> master
                 </select>
               </div>
 
@@ -141,6 +163,7 @@
               </div>
             </form>
           </div>
+<<<<<<< HEAD
           <?php
           if(empty($Produto)){
             echo '<h4 class="center"> Nenhum dado encontrado! </h4>';
@@ -177,6 +200,64 @@
                   $valor = $valor->Read($val['fk_fornecedor']);
                   $Fornecedor = $valor['nome'];
                   ?>
+=======
+          <table class="responsive-table centered">
+            <thead style="background: #2980b9; color: #fff;">
+              <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Tipo</th>
+                <th>Valor R$</th>
+                <th>Fornecedor</th>
+                <th>Apagar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+
+              require_once "../engine/config.php"; 
+
+              $valores = new Produto();
+
+              $valor = $valores->ReadAll();
+              $valores = $valores->ReadAll_fk($_SESSION['id']);
+
+              foreach($valores as $val) {
+
+                $id = $val['id'];
+                $nome_produto = $val['nome'];
+                $quantidade = $val['quantidade'];
+                $custo = $val['valor'];
+
+                switch ($val['tipo']) {
+                  case '0': $tipo_produto = "Caixa"; break;
+                  case '1': $tipo_produto = "Unidade"; break;
+                  case '2': $tipo_produto = "Outros"; break;
+                }
+
+                $valor = new Fornecedor();
+                $valor = $valor->Read($val['fk_fornecedor']);
+                $Fornecedor = $valor['nome'];
+                ?>
+
+                <tr class="detalhes_usuario">
+                  <td class="det" id="<?php echo $val['id']; ?>"><?php echo $nome_produto;?></td>
+                  <td class="det" id="<?php echo $val['id']; ?>"><?php echo $quantidade;?></td>
+                  <td class="det" id="<?php echo $val['id']; ?>"><?php echo $tipo_produto;?></td>
+                  <td class="det" id="<?php echo $val['id']; ?>">R$ <?php echo $custo;?>,00</td>
+                  <td class="det" id="<?php echo $val['id']; ?>"><?php echo $Fornecedor; ?></td>
+                  <td class="apagar" id="<?php echo $val['id']; ?>"><i class="fa fa-trash fa-lg"></i> </td>
+                </tr>
+              <?php }?>
+            </tbody>
+          </table>
+        </div>
+
+        <script src="../js/jquery.js"></script>
+        <script src="../js/materialize.js"></script>
+        <script src="../js/mbox-0.0.1.js"></script>
+        <script src="../js/drop_materialize.js"></script>
+>>>>>>> master
 
                   <tr class="detalhes_usuario">
                     <td class="det" id="<?php echo $val['id']; ?>"><?php echo $nome_produto;?></td>
@@ -202,6 +283,7 @@
               if($num_paginas > 0 && $pagina <= $num_paginas){
                 for($i = $inicio; $i <= $fim; $i++){
 
+<<<<<<< HEAD
                   if($i == $pagina){ ?>
                     <li><a style="text-transform: uppercase;font-weight: 700; background: #3574B9; color: white;" 
                       href="consultar_produto.php?pagina=<?php echo $i; ?>"><?php echo $i+1; ?></a></li>
@@ -210,6 +292,19 @@
                       <?php 
                     }
                   } if($pagina < $num_paginas-$lim_links-1){echo "<li style='text-transform: uppercase;font-weight: 700; color: #222; font-size: 1.2em;'>. . .</li>";}
+=======
+          $('.getout').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+              url: '../engine/controllers/logout.php',
+              data: {},
+              success: function(data) {
+                if(data === 'kickme'){
+                  document.location.href = '../login.php';
+                } else {
+                  return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+>>>>>>> master
                 }
                 ?>
                 <li class="waves-effect"><a href="consultar_produto.php?pagina=<?php echo $num_paginas-1 ?>"><i class="material-icons">chevron_right</i></a></li>
@@ -225,6 +320,7 @@
         </body>
         </html>
 
+<<<<<<< HEAD
         <script>
           $(document).ready(function(){
 
@@ -240,6 +336,18 @@
               $.ajax({
                 url: '../engine/controllers/logout.php',
                 data: {},
+=======
+          $(".apagar").click( function(event) {
+            var apagar = mbox.confirm('Deseja realmente excluir este registro?');
+            if (apagar){
+              var id = $(this).attr('id');
+              $.ajax({
+                url: '../engine/controllers/produto.php',
+                data: {
+                  id : id,
+                  action: 'delete'
+                },
+>>>>>>> master
                 success: function(data) {
                   if(data === 'kickme'){
                     document.location.href = '../login.php';
@@ -248,6 +356,7 @@
                   }
                 },
                 type: 'POST'
+<<<<<<< HEAD
               });
             });
 
@@ -330,3 +439,65 @@
 
           });
         </script>
+=======
+              });      
+            }else{
+             event.preventDefault();
+           } 
+         });
+
+          $("#tipo").change(function(){
+            var tipo = $('#tipo').val();
+
+            if(tipo == 0){
+              $("#solici_aberto").removeClass("hide");
+              $("#tipo_select").addClass("hide");
+              $("#fornecedor_select").addClass("hide");
+            }else if(tipo == 1){
+              $("#solici_aberto").removeClass("hide");
+              $("#tipo_select").addClass("hide");
+              $("#fornecedor_select").addClass("hide");
+            }else if(tipo == 2){
+              $("#solici_aberto").addClass("hide");
+              $("#tipo_select").removeClass("hide");
+              $("#fornecedor_select").addClass("hide");
+            }else if(tipo == 3){
+              $("#solici_aberto").removeClass("hide");
+              $("#tipo_select").addClass("hide");
+              $("#fornecedor_select").addClass("hide");
+            }else if (tipo == 4){
+              $("#solici_aberto").addClass("hide");
+              $("#tipo_select").addClass("hide");
+              $("#fornecedor_select").removeClass("hide");
+            }
+          });
+
+
+          $('#pesquisar').click(function(e) {
+            e.preventDefault();
+            var tipo = $('#tipo').val();
+            if (tipo == 0){
+              var pesq = $('#pesq_nome').val();
+              if(pesq == ""){
+                return toastr.error('Preencha o campo de pesquisa!');
+              }else{
+                window.location = "consultar_produto_resultado.php?pesq="+pesq+"&tipo="+tipo;
+              }
+            }else if(tipo == 1){
+              var pesq = $('#pesq_nome').val();
+              window.location = "consultar_produto_resultado.php?pesq="+pesq+"&tipo="+tipo;
+            }else if(tipo == 2){
+              var pesq = $('#tipo_pesq').val();
+              window.location = "consultar_produto_resultado.php?pesq="+pesq+"&tipo="+tipo;
+            }else if(tipo==3){
+              var pesq = $('#pesq_nome').val();
+              window.location = "consultar_produto_resultado.php?pesq="+pesq+"&tipo="+tipo;
+            }else if(tipo == 4){
+              var pesq = $('#fornecedor_pesq').val();
+              window.location = "consultar_produto_resultado.php?pesq="+pesq+"&tipo="+tipo;
+            }
+          });
+
+        });
+      </script>
+>>>>>>> master

@@ -119,10 +119,15 @@
             </form>
           </div>
 
+<<<<<<< HEAD
           <?php
           require_once "../engine/config.php";
           $item_por_pag = 5;
 
+=======
+          <?php 
+          require_once "../engine/config.php";
+>>>>>>> master
           $pesq = $_GET['pesq'];
           $tipo = $_GET['tipo'];
 
@@ -138,6 +143,7 @@
             $tipo = 't2.fk_fornecedor';
           }
 
+<<<<<<< HEAD
           $x = new Produto();
           $ProdutoNum = 0;
           $x = $x->ReadAll();
@@ -155,6 +161,10 @@
 
           $info = new Produto();
           $info = $info->Pesq_pag($_SESSION['id'], $item, $item_por_pag, $tipo, $pesq);
+=======
+          $info = new Produto();
+          $info = $info->Pesq($_SESSION['id'], $pesq, $tipo);
+>>>>>>> master
 
           if(empty($info)){
 
