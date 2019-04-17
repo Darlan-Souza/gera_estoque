@@ -6,7 +6,6 @@
     }
 
     session_start();
-    // Inicia a sessão
 
     if(empty($_SESSION)){
       ?>
@@ -18,7 +17,7 @@
     ?>
 
     <!DOCTYPE html>
-    <html lang="pt-br">
+    <html>
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -29,6 +28,8 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
+
       <style type="text/css">
         @media screen and (min-width: 600px) {
           #tipo_tabela{
@@ -47,7 +48,6 @@
       </style>
     </head>
     <body>
-      <?php require_once "../engine/config.php";?> 
       <nav style="background:#2980b9 ;">
         <div class="nav-wrapper">
           <ul class="hide-on-med-and-down">
@@ -67,10 +67,19 @@
             <br>
             <div class="col m12 s12">
               <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
-              <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="inserir_fornecedor.php" style="color: black; background: #27ae60;"><i class="fa fa-arrow-left"></i> Adicionar</a>
+              <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="inserir_fornecedor.php" style="color: black; background: #27ae60;"><i class="fas fa-plus"></i> Adicionar</a>
             </div>
 
             <form class="col s12">
+              <div class="col m7 s12"></div>
+              <div class="input-field col m2 s4">
+                <select id="tipo" name="tipo">
+                  <option value="0">Nome</option>
+                  <option value="1">CNPJ</option>
+                  <option value="2">E-mail</option>
+                </select> 
+              </div>
+
               <div class="input-field col m2 s5" id="solici_aberto">
                 <input placeholder="Pesquisar por..." id="pesq_nome" name="pesq_nome" type="text">
               </div>
@@ -91,7 +100,7 @@
             </thead>
             <tbody>
               <?php 
-
+              require_once "../engine/config.php";
               $valores = new Fornecedor();
               $valor = $valores->ReadAll();
 
@@ -101,7 +110,7 @@
                 $nome = $val['nome'];
                 $cnpj = $val['cnpj'];
                 $email = $val['email'];
-        
+                
                 ?>
                 <tr class="detalhes_usuario">
                   <td class="det" id="<?php echo $val['id']; ?>"><?php echo $nome;?></td>
@@ -113,12 +122,13 @@
             </tbody>
           </table>
         </div>
-
-        <script src="../js/jquery.js"></script>
-        <script src="../js/materialize.js"></script>
-
       </body>
       </html>
+
+      <script src="../js/jquery.js"></script>
+      <script src="../js/materialize.js"></script>
+      <script src="../js/mbox-0.0.1.js"></script>
+      <script src="../js/drop_materialize.js"></script>
 
       <script>
         $(document).ready(function(){
@@ -126,7 +136,7 @@
 
           $('.det').click(function(e) {
             var id = $(this).attr('id');
-            window.location = "edita_produto.php?id="+id;
+            window.location = "#";
           });
 
           $('.getout').click(function(e) {
@@ -153,8 +163,17 @@
               $.ajax({
                 url: '../engine/controllers/produto.php',
                 data: {
+                  fk_fornecedor : id,
+                  action: 'update_fornecedor'
+                },
+                //garante que seja executado na sequencia
+                async: false,
+                type: 'POST'
+              });
+              $.ajax({
+                url: '../engine/controllers/fornecedor.php',
+                data: {
                   id : id,
-
                   action: 'delete'
                 },
                 success: function(data) {
@@ -172,15 +191,35 @@
            } 
          });
 
-
+          $("#tipo").change(function(){
+              var tipo = $('#tipo').val();
+              if(tipo == 0){
+                $("#solici_aberto").removeClass("hide");
+              }else if(tipo == 1){
+                $("#solici_aberto").removeClass("hide");
+              }else if(tipo == 2){
+                $("#solici_aberto").romoveClass("hide");
+              }
+            });
+         
           $('#pesquisar').click(function(e) {
             e.preventDefault();
-            var pesq = $('#pesq_nome').val();
-            if(pesq == ""){
-              return toastr.error('Preencha o campo de pesquisa!');
-            }else{
-              window.location = "consulta_fornecedor_resultado.php?pesq="+pesq;
-            } 
-          });
+            var tipo = $('#tipo').val();
+            if (tipo == 0){
+              var pesq = $('#pesq_nome').val();
+              if(pesq == ""){
+                return toastr.error('Preencha o campo de pesquisa!');
+              }else{
+                window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
+              }
+            }else if(tipo == 1){
+              var pesq = $('#pesq_nome').val();
+              window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
+            }else if(tipo == 2){
+              var pesq = $('#pesq_nome').val();
+              window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
+            }
+          });          
+
         });
       </script>

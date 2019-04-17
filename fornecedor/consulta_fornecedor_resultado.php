@@ -29,6 +29,8 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
+
       <style type="text/css">
         @media screen and (min-width: 600px) {
           #tipo_tabela{
@@ -47,9 +49,6 @@
       </style>
     </head>
     <body>
-      <?php require_once "../engine/config.php";
-      $pesq = $_GET['pesq'];
-      ?>
       <nav style="background:#2980b9 ;">
         <div class="nav-wrapper">
           <ul class="hide-on-med-and-down">
@@ -68,10 +67,18 @@
           <div class="row">
             <br>
             <div class="col m12 s12">
-              <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
+              <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consulta_fornecedor.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
             </div>
 
             <form class="col s12">
+              <div class="col m7 s12"></div>
+              <div class="input-field col m2 s4">
+                <select id="tipo" name="tipo">
+                  <option value="0">Nome</option>
+                  <option value="1">CNPJ</option>
+                  <option value="2">E-mail</option>
+                </select> 
+              </div>
               <div class="input-field col m2 s5" id="solici_aberto">
                 <input placeholder="Pesquisar por..." id="pesq_nome" name="pesq_nome" type="text">
               </div>
@@ -82,13 +89,23 @@
             </form>
           </div>
 
-          <?php 
+          <?php
+          require_once "../engine/config.php";
+          $pesq = $_GET['pesq'];
+          $tipo = $_GET['tipo'];
+
+          if($tipo == 0){
+            $tipo = 't2.nome';
+          }else if($tipo == 1){
+            $tipo = 't2.cnpj';
+          }else if($tipo == 2){
+            $tipo = 't2.email';
+          }
+
           $info = new Fornecedor();
-          $info = $info->Pesq($_SESSION['id'], $pesq);
+          $info = $info->Pesq($_SESSION['id'], $pesq, $tipo);
 
-          var_dump($_SESSION['id']);
           if(empty($info)){
-
             echo '<center><h4>Nenhum dado encontrado!</h4></center>';
           }else{
             ?>
@@ -127,6 +144,9 @@
 
         <script src="../js/jquery.js"></script>
         <script src="../js/materialize.js"></script>
+        <script src="../js/mbox-0.0.1.js"></script>]
+        <script src="../js/drop_materialize.js"></script>
+
         <script type="text/javascript">
           $(document).ready(function(){
             $('.det').click(function(e) {
@@ -144,7 +164,7 @@
                   if(data === 'kickme'){
                     document.location.href = '../login.php';
                   } else {
-                    alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+                    return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
                   }
                 },
                 type: 'POST'
@@ -178,17 +198,35 @@
            });
 
 
+            $("#tipo").change(function(){
+              var tipo = $('#tipo').val();
+              if(tipo == 0){
+                $("#solici_aberto").removeClass("hide");
+              }else if(tipo == 1){
+                $("#solici_aberto").removeClass("hide");
+              }else if(tipo == 2){
+                $("#solici_aberto").romoveClass("hide");
+              }
+            });
+
             $('#pesquisar').click(function(e) {
               e.preventDefault();
-              var pesq = $('#pesq_nome').val();
-              if(pesq == ""){
-                return toastr.error('Preencha o campo de pesquisa!');
-              }else{
-                window.location = "consultar_produto_resultado.php?pesq="+pesq;
-              } 
-            });
+              var tipo = $('#tipo').val();
+              if (tipo == 0){
+                var pesq = $('#pesq_nome').val();
+                if(pesq == ""){
+                  return toastr.error('Preencha o campo de pesquisa!');
+                }else{
+                  window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
+                }
+              }else if(tipo == 1){
+                var pesq = $('#pesq_nome').val();
+                window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
+              }else if(tipo == 2){
+                var pesq = $('#pesq_nome').val();
+                window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
+              }
+            });    
+
           });
-
-
-
         </script>

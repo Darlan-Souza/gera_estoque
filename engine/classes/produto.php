@@ -68,6 +68,33 @@ class Produto{
 		return $result;
 	}
 
+	public function Update_fornecedor(){
+		$sql = "
+		UPDATE produto SET
+		fk_fornecedor = ''
+		WHERE fk_fornecedor = '$this->fk_fornecedor'
+		";
+
+		$DB = new DB();
+		$DB->open();
+		$result =$DB->query($sql);
+		$DB->close();
+		return $result;
+	}
+
+	public function ReadAll_Paginacao($inicio, $registros) {
+		$sql = "
+		SELECT * FROM produto LIMIT $inicio, $registros
+		";
+
+		$DB = new DB();
+		$DB->open();
+		$Data = $DB->fetchData($sql);
+
+		$DB->close();
+		return $Data;
+	}
+
 	public function Read_fk($id) {
 		$sql = "
 		SELECT * FROM produto WHERE fk_usuario  = '$id'
@@ -152,7 +179,7 @@ class Produto{
 	}
 
 	public function ReadAll(){
-		$sql = "SELECT *FROM produto";
+		$sql = "SELECT * FROM produto";
 
 		$DB = new DB();
 		$DB->open();
@@ -200,10 +227,10 @@ class Produto{
 		return $realData; 
 	}
 
-	public function Pesq($id, $pesq) {
+	public function Pesq($id, $pesq, $tipo) {
 		$sql = "
-		SELECT * FROM produto AS t1
-		WHERE t1.nome LIKE '%$pesq%' AND fk_usuario = '$id'
+		SELECT * FROM produto AS t2
+		WHERE $tipo LIKE '%$pesq%' AND fk_usuario = '$id'
 		";
 
 		$DB = new DB();
@@ -222,6 +249,21 @@ class Produto{
 		}
 		$DB->close();
 		return $realData;
+	}
+
+	public function Pesq_pag($id, $inicio, $registros, $tipo, $pesq) {
+		$sql = "
+		SELECT * FROM produto AS t2
+		WHERE $tipo LIKE '%$pesq%' AND fk_usuario = '$id'
+		LIMIT $inicio, $registros;
+		";
+
+		$DB = new DB();
+		$DB->open();
+		$Data = $DB->fetchData($sql);
+
+		$DB->close();
+		return $Data;
 	}
 
 	public function Delete(){

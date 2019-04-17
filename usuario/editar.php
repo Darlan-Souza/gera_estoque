@@ -55,17 +55,17 @@ if(empty($_SESSION)){
      <div class="row">
        <div class="input-field col m6 s12">
          <input type="text" id="nome" name="nome" value="<?php echo $Func['nome']; ?>">
-         <label >Nome</label>
+         <label >Nome*</label>
        </div>
        <div class="input-field col m6 s12">
          <input type="text" id="cpf" name="cpf" value="<?php echo $Func['cpf']; ?>">
-         <label >CPF</label>
+         <label >CPF*</label>
        </div>
      </div>
      <div class="row">
        <div class="input-field col m6 s12">
          <input type="email" id="email" name="email" required class="validate" value="<?php echo $Func['email']; ?>">
-         <label >E-mail</label>
+         <label >E-mail*</label>
        </div>
      </div>
      <br>
@@ -89,7 +89,7 @@ if(empty($_SESSION)){
     var cpf = $('#cpf').val();
     var email = $('#email').val();
 
-    if (nome === "" || cpf === "" || email === ""){
+    if (nome === "" && cpf === "" && email === ""){
       var $toastContent = $('<span>Preencha todos os campos!</span>');
       Materialize.toast($toastContent, 4000, 'rounded');
       return;

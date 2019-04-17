@@ -44,6 +44,17 @@ switch($action){
 	echo $res;
 	break;
 
+	case 'update_fornecedor':
+	$res = $Item->Update_fornecedor();
+
+	if($res === NULL){
+		$res= 'true';
+	}else{
+		$res = 'false';
+	}
+	echo $res;
+	break;
+
 	case 'delete':
 
 	$res = $Item->Delete();

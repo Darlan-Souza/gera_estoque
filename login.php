@@ -20,6 +20,7 @@ session_start();
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style_login.css" type="text/css" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/mbox-0.0.1.css"/>
 </head>
 
 <body>
@@ -52,6 +53,7 @@ session_start();
         <div class="row">
           <div>
             <a href="usuario/register.php" class="waves-effect waves-light btn-small"><p style="font-weight: 500; font-size: 1em; background: rgba(127, 140, 141,.5); padding: 7px; border-radius: 10px; color: #fff;">Registro</p></a>
+            <a href="login/esqueci_senha.php" class="waves-effect waves-light btn-small"><p style="font-weight: 500; font-size: 1em; background: rgba(127, 140, 141,.5); padding: 7px; border-radius: 10px; color: #fff;">Recuperar senha!</p></a>
           </div>         
         </div>
       </form>
@@ -61,7 +63,10 @@ session_start();
 
 <script src="js/jquery.js"></script>
 <script src="js/materialize.js"></script>
+<script src="js/mbox-0.0.1.js"></script>
+
 <script type="text/javascript">
+
   /*Para fazer o select aparecer*/
   window.onload=function(){
     $(document).ready(function() {
@@ -77,7 +82,7 @@ session_start();
       var senha_login = $('#senha_login').val();
 
       if(email_login == "" || senha_login == ""){
-        alert('Preencha todos os campos!');
+        return mbox.alert('Preencha todos os campos!');
       } else {
         $.ajax({
           url: 'engine/controllers/login.php',
@@ -90,11 +95,11 @@ session_start();
             if(obj.res === 'true'){
               window.location = "index.php";
             } else if(obj.res === 'no_user_found') {
-              alert('Usuário não encontrado.');
+              return mbox.alert('Usuário não encontrado.');
             } else if(obj.res === 'wrong_password') {
-              alert('Senha Incorreta.');
+              return mbox.alert('Senha Incorreta.');
             } else {
-              alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+              return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
             }
           },
           async: false,

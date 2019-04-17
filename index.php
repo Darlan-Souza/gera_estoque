@@ -26,6 +26,7 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="css/mbox-0.0.1.css"/>
     </head>
     <body>
       <nav style="background:#2980b9 ;">
@@ -57,18 +58,7 @@
             <div class="col s12 m6">
               <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
-                  <span class="card-title">Deposito</span>
-                  <p>Insira no sistema os produtos que você adquiriu.</p>
-                </div>
-                <div class="card-action">
-                  <a href="produto/inserir_produto.php">Inserir</a>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m6">
-              <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                  <span class="card-title">Consultar</span>
+                  <span class="card-title">Produto</span>
                   <p>Consulte no sistema os produtos que você possui.</p>
                 </div>
                 <div class="card-action">
@@ -76,8 +66,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
             <div class="col s12 m6">
               <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
@@ -89,6 +77,8 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col s12 m6">
               <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
@@ -110,6 +100,8 @@
       <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="../js/materialize.js"></script>
       <script src="../js/init.js"></script>
+      <script src="js/jquery.js"></script>
+      <script src="js/mbox-0.0.1.js"></script>
 
       <script>
 
@@ -123,7 +115,7 @@
             if(data === 'kickme'){
               document.location.href = 'login.php';
             } else {
-              alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
+              return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
             }
           },
           type: 'POST'
