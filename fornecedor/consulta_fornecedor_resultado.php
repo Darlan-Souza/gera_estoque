@@ -92,7 +92,6 @@
           <?php
           require_once "../engine/config.php";
           $pesq = $_GET['pesq'];
-<<<<<<< HEAD
           $tipo = $_GET['tipo'];
 
           if($tipo == 0){
@@ -102,8 +101,6 @@
           }else if($tipo == 2){
             $tipo = 't2.email';
           }
-=======
->>>>>>> master
 
           $info = new Fornecedor();
           $info = $info->Pesq($_SESSION['id'], $pesq, $tipo);
@@ -147,12 +144,8 @@
 
         <script src="../js/jquery.js"></script>
         <script src="../js/materialize.js"></script>
-<<<<<<< HEAD
         <script src="../js/mbox-0.0.1.js"></script>]
         <script src="../js/drop_materialize.js"></script>
-=======
-        <script src="../js/mbox-0.0.1.js"></script>
->>>>>>> master
 
         <script type="text/javascript">
           $(document).ready(function(){

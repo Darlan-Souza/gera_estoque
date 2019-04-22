@@ -8,62 +8,83 @@ session_start();
 
 ?>
 
+<html>
 
-<!DOCTYPE html>
-<html lang="pt-br">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Estoque</title>
-
-  <!-- CSS  -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style_login.css" type="text/css" rel="stylesheet"/>
-  <link rel="stylesheet" type="text/css" href="css/mbox-0.0.1.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+      background: #257484;
+    }
+
+    body {
+      background: #fff;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="login-page" class="row">
-    <div class="col s12 z-depth-6 card-panel" style="background: rgba(52, 73, 94,.8); border-radius: 1em;">
+  <main>
+    <center>
+      <h5 class="indigo-text"><i class="fas fa-user" style="font-size: 4em; color: #000; "></i></h5>
+      <div class="container">
+        <div class="x" style="background: rgba(127, 140, 141,0.4); display: inline-block; padding: 32px 48px 0px 48px; border-radius: 4px;">
 
-      <p class="center" style="color: #fff; font-size: 2em; height: 0.5em; font-weight: 700;">Login</p>
-      <form class="login-form">
-        <div class="row">
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">mail_outline</i>
-            <input class="validate" id="email_login" type="email">
-            <label for="email_login">Email</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">lock_outline</i>
-            <input id="senha_login" type="password">
-            <label for="password">Senha</label>
-          </div>
-        </div>
+          <form class="col s12" method="post">
+            <div class='row'>
+              <div class='col s12'>
+              </div>
+            </div>
 
-        <div class="modal-footer">
-          <center><button id="login_usuario" class="btn waves-effect waves-light" type="submit" name="action">Entrar<i class="material-icons right">send</i></button></center>
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class="validate" id="email_login" type="email">
+                <label for="email_login">Email</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input id="senha_login" type="password">
+                <label for="password">Senha</label>
+              </div>
+              <label style='float: right;'>
+                <a href='login/esqueci_senha.php' style="color: #000; font-size: 13px;"><b>Esqueceu a senha?</b></a>
+              </label>
+            </div>
+            <br>
+            <center>
+
+              <div class="row">
+                <button id="login_usuario" class='col s12 btn btn-large waves-effect indigo' type="submit" name="action">Entrar</button>
+              </div>
+              <br>
+              <a href="usuario/register.php" style="color: #fff; font-size: 1em; font-weight: 500;">Criar conta</a>
+            </center>
+          </form>
         </div>
-        <br>
-        <div class="row">
-          <div>
-            <a href="usuario/register.php" class="waves-effect waves-light btn-small"><p style="font-weight: 500; font-size: 1em; background: rgba(127, 140, 141,.5); padding: 7px; border-radius: 10px; color: #fff;">Registro</p></a>
-            <a href="login/esqueci_senha.php" class="waves-effect waves-light btn-small"><p style="font-weight: 500; font-size: 1em; background: rgba(127, 140, 141,.5); padding: 7px; border-radius: 10px; color: #fff;">Recuperar senha!</p></a>
-          </div>         
-        </div>
-      </form>
-    </div>
-  </div> 
+      </div>
+    </center>
+
+  </main>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
+
+</html>
 
 <script src="js/jquery.js"></script>
 <script src="js/materialize.js"></script>
-<script src="js/mbox-0.0.1.js"></script>
 
 <script type="text/javascript">
 

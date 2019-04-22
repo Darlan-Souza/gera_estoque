@@ -39,17 +39,10 @@ class Fornecedor{
 		return json_encode($result);
 	}
 
-<<<<<<< HEAD
 	public function Pesq($id, $pesq, $tipo) {
 		$sql = "
 		SELECT * FROM fornecedor AS t2
 		WHERE $tipo LIKE '%$pesq%'
-=======
-	public function Pesq($id, $pesq) {
-		$sql = "
-		SELECT * FROM fornecedor AS t1
-		WHERE t1.nome LIKE '%$pesq%' AND id = '$id'
->>>>>>> master
 		";
 
 		$DB = new DB();

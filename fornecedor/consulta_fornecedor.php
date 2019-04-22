@@ -128,10 +128,7 @@
       <script src="../js/jquery.js"></script>
       <script src="../js/materialize.js"></script>
       <script src="../js/mbox-0.0.1.js"></script>
-<<<<<<< HEAD
       <script src="../js/drop_materialize.js"></script>
-=======
->>>>>>> master
 
       <script>
         $(document).ready(function(){

@@ -40,40 +40,40 @@ if(empty($_SESSION)){
         <li><a href="../engine/controllers/logout.php"><i class="material-icons">arrow_forward</i></a></li>
       </ul>
       <ul class=" right hide-on-med-and-down">
-        <li><a href="usuario/editar.php"><i class="large material-icons">account_circle</i></a>
-        </ul>
-      </div>
-    </nav>
-    <div class="container row m6">
-     <h2 class="center title_responsivo">Editar Dados</h2>
-     <?php require_once "../engine/config.php";
-     $Func = new Usuario();
-     $Func = $Func->Read($_SESSION['id']);
-     ?>
-
-     <br><br>
-     <div class="row">
-       <div class="input-field col m6 s12">
-         <input type="text" id="nome" name="nome" value="<?php echo $Func['nome']; ?>">
-         <label >Nome*</label>
-       </div>
-       <div class="input-field col m6 s12">
-         <input type="text" id="cpf" name="cpf" value="<?php echo $Func['cpf']; ?>">
-         <label >CPF*</label>
-       </div>
-     </div>
-     <div class="row">
-       <div class="input-field col m6 s12">
-         <input type="email" id="email" name="email" required class="validate" value="<?php echo $Func['email']; ?>">
-         <label >E-mail*</label>
-       </div>
-     </div>
-     <br>
-
-     <div class="input-field col m12 s12">
-      <p class="center"><a class="waves-effect waves-light btn green darken-3" id="Salvar"><i class="fa fa-pencil"></i> Salvar Alterações </a></p>
+        <li><a href="usuario/editar.php"><i class="large material-icons">account_circle</i></a></li>
+      </ul>
     </div>
+  </nav>
+  <div class="container row m6">
+   <h2 class="center title_responsivo">Editar Dados</h2>
+   <?php require_once "../engine/config.php";
+   $Func = new Usuario();
+   $Func = $Func->Read($_SESSION['id']);
+   ?>
+
+   <br><br>
+   <div class="row">
+     <div class="input-field col m6 s12">
+       <input type="text" id="nome" name="nome" value="<?php echo $Func['nome']; ?>">
+       <label >Nome*</label>
+     </div>
+     <div class="input-field col m6 s12">
+       <input type="text" id="cpf" name="cpf" value="<?php echo $Func['cpf']; ?>">
+       <label >CPF*</label>
+     </div>
+   </div>
+   <div class="row">
+     <div class="input-field col m6 s12">
+       <input type="email" id="email" name="email" required class="validate" value="<?php echo $Func['email']; ?>">
+       <label >E-mail*</label>
+     </div>
+   </div>
+   <br>
+
+   <div class="input-field col m12 s12">
+    <p class="center"><a class="waves-effect waves-light btn green darken-3" id="Salvar"><i class="fa fa-pencil"></i> Salvar Alterações </a></p>
   </div>
+</div>
 </body>
 </html>
 
