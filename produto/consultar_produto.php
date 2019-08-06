@@ -31,7 +31,7 @@
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
       <style type="text/css">
-        @media screen and (min-width: 600px) {
+        @media screen and (min-width: 601px) {
           #tipo_tabela{
             width: 400px;
           }
