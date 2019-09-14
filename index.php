@@ -27,6 +27,8 @@
       <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link rel="stylesheet" type="text/css" href="css/mbox-0.0.1.css"/>
+      <link href="css/somesystem.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
     </head>
     <body>
       <nav style="background:#2980b9 ;">
@@ -93,17 +95,22 @@
           <div class="col s12 m6">
             <div class="card blue-grey darken-1">
               <div class="card-content white-text">
-                <span class="card-title">Preencher</span>
-                <p>Procurar algo para preencher.</p>
+                <span class="card-title">Checar preços</span>
+                <p>Checar preços dos produtos</p>
               </div>
               <div class="card-action">
-                <a href="#">Preencher</a>
+                <a href="#">Checar preços</a>
               </div>
             </div>
           </div>
         </div>
 
       </div>
+      <!-- ========== footer ==================== -->
+      <footer class="footer-psicologia">
+        <p class="center"> &copy; <script>document.write(new Date().getFullYear())</script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>
+        Contato: (38) 2354-6787.</small> </p>
+      </footer>
     </body>
     </html>
 

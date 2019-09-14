@@ -23,11 +23,11 @@
 
     <body>  
       <br>
-      <div class="col m12 s12">
-         <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../index.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
-      </div>
-
       <center><h5 style="font-weight: 600;">Registro de usuário</h5></center>
+      <br>
+      <div class="col m12 s12">
+        <a class="waves-effect waves-light btn" href="../index.php" style="background: #2e7d32; color: white; margin: 1em;"><i class="fas fa-arrow-left"></i> Voltar</a>
+      </div>
       <br>
       <div class="container">
         <div class="row">

@@ -29,6 +29,7 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link href="../css/somesystem.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <style type="text/css">
         @media screen and (min-width: 600px) {
           #tipo_tabela{
@@ -98,7 +99,11 @@
             <center><a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="../pdf/exemploPdf.php" style="color: black; background: #f06595; margin: .5em;"><i class="fas fa-file-pdf"></i> PDF</a></center>
           </div>
         </div>
-
+        <!-- ========== footer ==================== -->
+        <footer class="footer-psicologia">
+          <p class="center"> &copy; <script>document.write(new Date().getFullYear())</script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>
+          Contato: (38) 2354-6787.</small> </p>
+        </footer>
       </body>
       </html>
 

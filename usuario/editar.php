@@ -29,6 +29,7 @@ if(empty($_SESSION)){
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../css/somesystem.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
   <nav style="background:#2980b9 ;">
@@ -74,6 +75,12 @@ if(empty($_SESSION)){
     <p class="center"><a class="waves-effect waves-light btn green darken-3" id="Salvar"><i class="fa fa-pencil"></i> Salvar Alterações </a></p>
   </div>
 </div>
+
+<!-- ========== footer ==================== -->
+<footer class="footer-psicologia">
+  <p class="center"> &copy; <script>document.write(new Date().getFullYear())</script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>
+  Contato: (38) 2354-6787.</small> </p>
+</footer>
 </body>
 </html>
 
