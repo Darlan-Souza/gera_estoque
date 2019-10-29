@@ -11,74 +11,100 @@ session_start();
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet prefetch'
+  href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css'>
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
   <style>
+    html,
     body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
+      height: 100%;
     }
 
-    main {
-      flex: 1 0 auto;
-      background: #257484;
+    html {
+      display: table;
+      margin: auto;
     }
 
     body {
-      background: #fff;
+      display: table-cell;
+      vertical-align: middle;
+      background: rgba(108, 92, 231,.7);
+    }
+
+    #login-page {
+      width: 400px;
+    }
+
+    .card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -moz-transform: translate(-50%, -50%) -webkit-transform: translate(-50%, -50%) -ms-transform: translate(-50%, -50%) -o-transform: translate(-50%, -50%) transform: translate(-50%, -50%);
+    }
+
+    hr{
+      border-color:#aaa;
+      box-sizing:border-box;
+      width:100%;  
     }
   </style>
+
+
 </head>
 
 <body>
-  <main>
-    <center>
-      <h5 class="indigo-text"><i class="fas fa-user" style="font-size: 4em; color: #000; "></i></h5>
-      <div class="container">
-        <div class="x" style="background: rgba(127, 140, 141,0.4); display: inline-block; padding: 32px 48px 0px 48px; border-radius: 4px;">
-
-          <form class="col s12" method="post">
-            <div class='row'>
-              <div class='col s12'>
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12'>
-                <input class="validate" id="email_login" type="email">
-                <label for="email_login">Email</label>
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12'>
-                <input id="senha_login" type="password">
-                <label for="password">Senha</label>
-              </div>
-              <label style='float: right;'>
-                <a href='login/esqueci_senha.php' style="color: #000; font-size: 13px;"><b>Esqueceu a senha?</b></a>
-              </label>
-            </div>
-            <br>
-            <center>
-
-              <div class="row">
-                <button id="login_usuario" class='col s12 btn btn-large waves-effect indigo' type="submit" name="action">Entrar</button>
-              </div>
-              <br>
-              <a href="usuario/register.php" style="color: #fff; font-size: 1em; font-weight: 500;">Criar conta</a>
-            </center>
-          </form>
-        </div>
+  <div id="login-page" class="row">
+    <div class="col s12 z-depth-6 card-panel">
+      <div class="center">
+        <img src="img/login.png" style="width: 200px;">
       </div>
-    </center>
+      <hr>
+      <form class="login-form">
+        <div class="row">
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">mail_outline</i>
+            <input class="validate" id="email_login" type="email">
+            <label for="email_login">E-mail</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock_outline</i>
+            <input id="senha_login" type="password">
+            <label for="password">Senha</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m12 l12  login-text">
+            <input type="checkbox" id="remember-me" />
+            <label for="remember-me">Salvar</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <a href="#" id="login_usuario" class="btn waves-effect waves-light col s12">Login</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 m6 l6">
+            <p class="margin medium-small"><a href="usuario/register.php">Criar conta!</a></p>
+          </div>
+        </div>
 
-  </main>
+      </form>
+    </div>
+  </div>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+
+
+
 </body>
 
 </html>

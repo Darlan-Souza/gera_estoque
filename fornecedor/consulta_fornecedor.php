@@ -29,6 +29,7 @@
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
+      <link href="../css/somesystem.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
       <style type="text/css">
         @media screen and (min-width: 600px) {
@@ -122,6 +123,11 @@
             </tbody>
           </table>
         </div>
+        <!-- ========== footer ==================== -->
+        <footer class="footer-psicologia">
+          <p class="center"> &copy; <script>document.write(new Date().getFullYear())</script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>
+          Contato: (38) 2354-6787.</small> </p>
+        </footer>
       </body>
       </html>
 
@@ -192,16 +198,16 @@
          });
 
           $("#tipo").change(function(){
-              var tipo = $('#tipo').val();
-              if(tipo == 0){
-                $("#solici_aberto").removeClass("hide");
-              }else if(tipo == 1){
-                $("#solici_aberto").removeClass("hide");
-              }else if(tipo == 2){
-                $("#solici_aberto").romoveClass("hide");
-              }
-            });
-         
+            var tipo = $('#tipo').val();
+            if(tipo == 0){
+              $("#solici_aberto").removeClass("hide");
+            }else if(tipo == 1){
+              $("#solici_aberto").removeClass("hide");
+            }else if(tipo == 2){
+              $("#solici_aberto").romoveClass("hide");
+            }
+          });
+          
           $('#pesquisar').click(function(e) {
             e.preventDefault();
             var tipo = $('#tipo').val();

@@ -30,6 +30,7 @@
       <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
+      <link href="../css/somesystem.css" type="text/css" rel="stylesheet" media="screen,projection"/>
       <style type="text/css">
         @media screen and (min-width: 601px) {
           #tipo_tabela{
@@ -221,6 +222,12 @@
           <script src="../js/materialize.js"></script>
           <script src="../js/mbox-0.0.1.js"></script>
           <script src="../js/drop_materialize.js"></script>
+          
+          <!-- ========== footer ==================== -->
+          <footer class="footer-psicologia">
+            <p class="center"> &copy; <script>document.write(new Date().getFullYear())</script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>
+            Contato: (38) 2354-6787.</small> </p>
+          </footer>
 
         </body>
         </html>
