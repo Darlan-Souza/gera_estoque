@@ -121,7 +121,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <p class="center"><button id="registrar_produto" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar<i class="fa fa-arrow-right"></i></button></p>
+                <p class="center"><button id="registrar_produto" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar <i class="fa fa-plus"></i></button></p>
               </div>
             </form>
           </div>
