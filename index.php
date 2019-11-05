@@ -42,8 +42,9 @@
           <ul class="right hide-on-med-and-down getout">
             <?php 
             require_once "engine/config.php";
+            $user = $_SESSION['id'];
             $valores = new Usuario();
-            $teste = $valores->ReadAll();
+            $teste = $valores->Read($user);
 
             $nome = $teste['nome'];
             ?>
@@ -84,28 +85,28 @@
           <div class="col s12 m6">
             <div class="card blue-grey darken-1">
               <div class="card-content white-text">
-                <span class="card-title">Gerar relatório</span>
-                <p>Gere o relatório do estoque.</p>
+                <span class="card-title">Solicitar Produtos</span>
+                <p>Solicite produtos a um fornecedor.</p>
               </div>
               <div class="card-action">
-                <a href="relatorio/gerar.php">Gerar</a>
+                <a href="relatorio/index.php">Solicitar</a>
               </div>
             </div>
           </div>
           <div class="col s12 m6">
             <div class="card blue-grey darken-1">
               <div class="card-content white-text">
-                <span class="card-title">Checar preços</span>
-                <p>Checar preços dos produtos</p>
+                <span class="card-title">Segurança da Informação</span>
+                <p>Verificar PSI</p>
               </div>
               <div class="card-action">
-                <a href="#">Checar preços</a>
+                <a href="psi/index.php">Checar PSI</a>
               </div>
             </div>
           </div>
         </div>
-
       </div>
+
       <!-- ========== footer ==================== -->
       <footer class="footer-psicologia">
         <p class="center"> &copy; <script>document.write(new Date().getFullYear())</script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>

@@ -77,7 +77,7 @@
               </div>
 
               <div class="modal-footer">
-                <center><button id="registrar_usuario" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar<i class="fa fa-arrow-right"></i></button></center>
+                <center><button id="registrar_usuario" class="modal-action modal-close waves-effect waves-light btn medium-small darken-3">Registrar <i class="fa fa-plus"></i></button></center>
               </div>
             </form>
           </div>
