@@ -89,9 +89,7 @@ if (empty($_SESSION)) {
                     <option value="" desabled selected>Selecione...</option>
                     <?php
                     foreach ($info as $todos) { ?>
-
                         <option value="<?php echo $todos['id']; ?>"><?php echo $todos['nome']; ?></option>';
-
                     <?php }
                     ?>
                 </select>

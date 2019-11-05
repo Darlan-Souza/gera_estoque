@@ -42,8 +42,9 @@
           <ul class="right hide-on-med-and-down getout">
             <?php 
             require_once "engine/config.php";
+            $user = $_SESSION['id'];
             $valores = new Usuario();
-            $teste = $valores->ReadAll();
+            $teste = $valores->Read($user);
 
             $nome = $teste['nome'];
             ?>
