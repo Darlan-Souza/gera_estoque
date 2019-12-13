@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 05/11/2019 10:59:35
+ Date: 12/12/2019 22:47:09
 */
 
 SET NAMES utf8mb4;
@@ -27,13 +27,7 @@ CREATE TABLE `fornecedor`  (
   `cnpj` int(255) NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of fornecedor
--- ----------------------------
-INSERT INTO `fornecedor` VALUES (1, 'darla', 123, 'dar@dar.com');
-INSERT INTO `fornecedor` VALUES (2, 'teste', 23, '123@123.com');
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for produto
@@ -45,12 +39,13 @@ CREATE TABLE `produto`  (
   `quantidade` int(11) NOT NULL,
   `tipo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `fk_usuario` int(11) NOT NULL,
-  `fk_produto` int(11) NOT NULL,
+  `fk_fornecedor` int(11) NOT NULL,
+  `valor` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `produto_usuario`(`fk_usuario`) USING BTREE,
-  INDEX `fornecedor_produto`(`fk_produto`) USING BTREE,
-  CONSTRAINT `fornecedor_produto` FOREIGN KEY (`fk_produto`) REFERENCES `fornecedor` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+  INDEX `fornecedor_produto`(`fk_fornecedor`) USING BTREE,
+  CONSTRAINT `fornecedor_produto` FOREIGN KEY (`fk_fornecedor`) REFERENCES `fornecedor` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for usuario
@@ -63,15 +58,6 @@ CREATE TABLE `usuario`  (
   `senha` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of usuario
--- ----------------------------
-INSERT INTO `usuario` VALUES (17, 'Darlan Souza Silva ', '141435', '$2y$10$StioLBJPzBkKdZUok.Piou5nVImK1nB0K/J6zVnerQWcrfMqW/7Wu', 'darlan@gmail.com');
-INSERT INTO `usuario` VALUES (18, 'Darlan', '141435', '$2y$10$T4/mHifpSN/U6vDrXDNO4OoJymXW2e2Sc2J.poi58KV5rCuqfeLn6', 'darlan@gmail.com');
-INSERT INTO `usuario` VALUES (19, 'Teste', '1243', '$2y$10$j3YaRyw6BNY2Ve9KzvyUNetETnjVbrWBVA/FE2tfGZKq0vWm4aIQa', 'darlan1998az@gmail.com');
-INSERT INTO `usuario` VALUES (20, 'Darlan Souza', '124312', '$2y$10$rAdX1W9tNddNL0PyJPFa0OrPuT3uhkEog4LbbpRUtw/5n90SW3EQC', 'darlan.ufvjm@gmail.com');
-INSERT INTO `usuario` VALUES (21, 'teset 1', '141.435.126-70', '$2y$10$6yohdI7Nxrclc17JsVemvupM6UdC5ITjr9hTMLhi0xuUgBtFISLAy', 'admin@admin');
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;
