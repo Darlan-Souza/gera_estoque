@@ -1,6 +1,6 @@
     <?php
     $showerros = true;
-    if($showerros) {
+    if ($showerros) {
       ini_set("display_errors", $showerros);
       error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
     }
@@ -8,47 +8,51 @@
     session_start();
     // Inicia a sessão
 
-    if(empty($_SESSION)){
+    if (empty($_SESSION)) {
       ?>
       <script>
-        document.location.href = '../login.php' ;
+        document.location.href = '../login.php';
       </script>
-      <?php
+    <?php
     }
     ?>
 
     <!DOCTYPE html>
     <html lang="pt-br">
+
     <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>Estoque</title>
 
       <!-- CSS  -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-      <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css"/>
-      <link href="../css/somesystem.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+      <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+      <link rel="stylesheet" type="text/css" href="../css/mbox-0.0.1.css" />
+      <link href="../css/somesystem.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
       <style type="text/css">
         @media screen and (min-width: 600px) {
-          #tipo_tabela{
+          #tipo_tabela {
             width: 400px;
           }
         }
-        .detalhes_usuario:hover .det{
+
+        .detalhes_usuario:hover .det {
           background: rgba(0, 169, 161, 0.3);
           cursor: pointer;
         }
-        .apagar:hover{
-          cursor:pointer;
+
+        .apagar:hover {
+          cursor: pointer;
           color: #fff;
           background-color: rgba(187, 36, 52, 0.9);
         }
       </style>
     </head>
+
     <body>
       <nav style="background:#2980b9 ;">
         <div class="nav-wrapper">
@@ -60,178 +64,182 @@
           </ul>
           <ul class=" right hide-on-med-and-down">
             <li><a href="usuario/editar.php"><i class="large material-icons">account_circle</i></a>
-            </ul>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid" style="min-height: 100vh;">
+        <div class="row">
+          <br>
+          <div class="col m12 s12">
+            <a class="waves-effect waves-light btn <?php if ($flagUser == 1) echo 'hide' ?>" href="consulta_fornecedor.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
           </div>
-        </nav>
-        
-        <div class="container-fluid" style="min-height: 100vh;">
-          <div class="row">
-            <br>
-            <div class="col m12 s12">
-              <a class="waves-effect waves-light btn <?php if($flagUser == 1) echo 'hide' ?>" href="consulta_fornecedor.php" style="color: black; background: white;"><i class="fa fa-arrow-left"></i> Voltar</a>
+
+          <form class="col s12">
+            <div class="col m7 s12"></div>
+            <div class="input-field col m2 s4">
+              <select id="tipo" name="tipo">
+                <option value="0">Nome</option>
+                <option value="1">CNPJ</option>
+                <option value="2">E-mail</option>
+              </select>
+            </div>
+            <div class="input-field col m2 s5" id="solici_aberto">
+              <input placeholder="Pesquisar por..." id="pesq_nome" name="pesq_nome" type="text">
             </div>
 
-            <form class="col s12">
-              <div class="col m7 s12"></div>
-              <div class="input-field col m2 s4">
-                <select id="tipo" name="tipo">
-                  <option value="0">Nome</option>
-                  <option value="1">CNPJ</option>
-                  <option value="2">E-mail</option>
-                </select> 
-              </div>
-              <div class="input-field col m2 s5" id="solici_aberto">
-                <input placeholder="Pesquisar por..." id="pesq_nome" name="pesq_nome" type="text">
-              </div>
+            <div class="input-field col m1 s1">
+              <a class="waves-effect waves-light btn" style="background: #2980b9;" id="pesquisar"><i class="fa fa-search"></i></a>
+            </div>
+          </form>
+        </div>
 
-              <div class="input-field col m1 s1">
-                <a class="waves-effect waves-light btn" style="background: #2980b9;" id="pesquisar"><i class="fa fa-search"></i></a>
-              </div>
-            </form>
-          </div>
+        <?php
+        require_once "../engine/config.php";
+        $pesq = $_GET['pesq'];
+        $tipo = $_GET['tipo'];
 
-          <?php
-          require_once "../engine/config.php";
-          $pesq = $_GET['pesq'];
-          $tipo = $_GET['tipo'];
+        if ($tipo == 0) {
+          $tipo = 't2.nome';
+        } else if ($tipo == 1) {
+          $tipo = 't2.cnpj';
+        } else if ($tipo == 2) {
+          $tipo = 't2.email';
+        }
 
-          if($tipo == 0){
-            $tipo = 't2.nome';
-          }else if($tipo == 1){
-            $tipo = 't2.cnpj';
-          }else if($tipo == 2){
-            $tipo = 't2.email';
-          }
+        $info = new Fornecedor();
+        $info = $info->Pesq($_SESSION['id'], $pesq, $tipo);
 
-          $info = new Fornecedor();
-          $info = $info->Pesq($_SESSION['id'], $pesq, $tipo);
+        if (empty($info)) {
+          echo '<center><h4>Nenhum dado encontrado!</h4></center>';
+        } else {
+          ?>
 
-          if(empty($info)){
-            echo '<center><h4>Nenhum dado encontrado!</h4></center>';
-          }else{
-            ?>
-
-            <table class="responsive-table centered">
-              <thead style="background: #2980b9; color: #fff;">
-                <tr>
-                  <th>Nome</th>
-                  <th>CNPJ</th>
-                  <th>E-mail</th>
-                  <th>Apagar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php 
-                foreach($info as $val) {
+          <table class="responsive-table centered">
+            <thead style="background: #2980b9; color: #fff;">
+              <tr>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>E-mail</th>
+                <th>Apagar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+                foreach ($info as $val) {
                   $id = $val['id'];
                   $nome = $val['nome'];
                   $cnpj = $val['cnpj'];
                   $email = $val['email'];
                   ?>
 
-                  <tr class="detalhes_usuario">
-                    <td class="det" id="<?php echo $val['id']; ?>"><?php echo $nome;?></td>
-                    <td class="det" id="<?php echo $val['id']; ?>"><?php echo $cnpj;?></td>
-                    <td class="det" id="<?php echo $val['id']; ?>"><?php echo $email;?></td>
-                    <td class="apagar" id="<?php echo $val['id']; ?>"><i class="fa fa-trash fa-lg"></i> </td>
-                  </tr>
-                <?php } } ?>
-              </tbody>
-            </table>
-          </div>
-          <!-- ========== footer ==================== -->
-          <footer class="footer-psicologia">
-            <p class="center"> &copy; <script>document.write(new Date().getFullYear())</script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>
+                <tr class="detalhes_usuario">
+                  <td class="det" id="<?php echo $val['id']; ?>"><?php echo $nome; ?></td>
+                  <td class="det" id="<?php echo $val['id']; ?>"><?php echo $cnpj; ?></td>
+                  <td class="det" id="<?php echo $val['id']; ?>"><?php echo $email; ?></td>
+                  <td class="apagar" id="<?php echo $val['id']; ?>"><i class="fa fa-trash fa-lg"></i> </td>
+                </tr>
+            <?php }
+            } ?>
+            </tbody>
+          </table>
+      </div>
+      <!-- ========== footer ==================== -->
+      <footer class="footer-psicologia">
+        <p class="center"> &copy; <script>
+            document.write(new Date().getFullYear())
+          </script> Super Atacado, <small>Rua São Paulo, nº 5000 – Catedral. Diamantina-MG. CEP: 39100-000. <br>
             Contato: (38) 2354-6787.</small> </p>
-          </footer>
-        </body>
-        </html>
+      </footer>
+    </body>
 
-        <script src="../js/jquery.js"></script>
-        <script src="../js/materialize.js"></script>
-        <script src="../js/mbox-0.0.1.js"></script>]
-        <script src="../js/drop_materialize.js"></script>
+    </html>
 
-        <script type="text/javascript">
-          $(document).ready(function(){
-            $('.det').click(function(e) {
-              var id = $(this).attr('id');
-              window.location = "edita_produto.php?id="+id;
-            });
+    <script src="../js/jquery.js"></script>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/mbox-0.0.1.js"></script>]
+    <script src="../js/drop_materialize.js"></script>
 
-            $('.getout').click(function(e) {
-              e.preventDefault();
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.det').click(function(e) {
+          var id = $(this).attr('id');
+          window.location = "edita_produto.php?id=" + id;
+        });
 
-              $.ajax({
-                url: '../engine/controllers/logout.php',
-                data: {},
-                success: function(data) {
-                  if(data === 'kickme'){
-                    document.location.href = '../login.php';
-                  } else {
-                    return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
-                  }
-                },
-                type: 'POST'
-              });
-            });
+        $('.getout').click(function(e) {
+          e.preventDefault();
 
-            $(".apagar").click( function(event) {
-              var apagar = confirm('Deseja realmente excluir este registro?');
-              if (apagar){
-                var id = $(this).attr('id');
-                $.ajax({
-                  url: '../engine/controllers/produto.php',
-                  data: {
-                    id : id,
-
-                    action: 'delete'
-                  },
-                  success: function(data) {
-                    if(data === 'true'){
-                      Materialize.toast("Solicitação excluida.", 3000, "rounded", function(){
-                        location.reload();
-                      });
-                    }
-                  },
-                  async: false,
-                  type: 'POST'
-                });      
-              }else{
-               event.preventDefault();
-             } 
-           });
-
-
-            $("#tipo").change(function(){
-              var tipo = $('#tipo').val();
-              if(tipo == 0){
-                $("#solici_aberto").removeClass("hide");
-              }else if(tipo == 1){
-                $("#solici_aberto").removeClass("hide");
-              }else if(tipo == 2){
-                $("#solici_aberto").romoveClass("hide");
+          $.ajax({
+            url: '../engine/controllers/logout.php',
+            data: {},
+            success: function(data) {
+              if (data === 'kickme') {
+                document.location.href = '../login.php';
+              } else {
+                return mbox.alert('Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.');
               }
-            });
-
-            $('#pesquisar').click(function(e) {
-              e.preventDefault();
-              var tipo = $('#tipo').val();
-              if (tipo == 0){
-                var pesq = $('#pesq_nome').val();
-                if(pesq == ""){
-                  return toastr.error('Preencha o campo de pesquisa!');
-                }else{
-                  window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
-                }
-              }else if(tipo == 1){
-                var pesq = $('#pesq_nome').val();
-                window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
-              }else if(tipo == 2){
-                var pesq = $('#pesq_nome').val();
-                window.location = "consulta_fornecedor_resultado.php?pesq="+pesq+"&tipo="+tipo;
-              }
-            });    
-
+            },
+            type: 'POST'
           });
-        </script>
+        });
+
+        $(".apagar").click(function(event) {
+          var apagar = confirm('Deseja realmente excluir este registro?');
+          if (apagar) {
+            var id = $(this).attr('id');
+            $.ajax({
+              url: '../engine/controllers/produto.php',
+              data: {
+                id: id,
+
+                action: 'delete'
+              },
+              success: function(data) {
+                if (data === 'true') {
+                  Materialize.toast("Solicitação excluida.", 3000, "rounded", function() {
+                    location.reload();
+                  });
+                }
+              },
+              async: false,
+              type: 'POST'
+            });
+          } else {
+            event.preventDefault();
+          }
+        });
+
+
+        $("#tipo").change(function() {
+          var tipo = $('#tipo').val();
+          if (tipo == 0) {
+            $("#solici_aberto").removeClass("hide");
+          } else if (tipo == 1) {
+            $("#solici_aberto").removeClass("hide");
+          } else if (tipo == 2) {
+            $("#solici_aberto").romoveClass("hide");
+          }
+        });
+
+        $('#pesquisar').click(function(e) {
+          e.preventDefault();
+          var tipo = $('#tipo').val();
+          if (tipo == 0) {
+            var pesq = $('#pesq_nome').val();
+            if (pesq == "") {
+              return toastr.error('Preencha o campo de pesquisa!');
+            } else {
+              window.location = "consulta_fornecedor_resultado.php?pesq=" + pesq + "&tipo=" + tipo;
+            }
+          } else if (tipo == 1) {
+            var pesq = $('#pesq_nome').val();
+            window.location = "consulta_fornecedor_resultado.php?pesq=" + pesq + "&tipo=" + tipo;
+          } else if (tipo == 2) {
+            var pesq = $('#pesq_nome').val();
+            window.location = "consulta_fornecedor_resultado.php?pesq=" + pesq + "&tipo=" + tipo;
+          }
+        });
+
+      });
+    </script>

@@ -178,7 +178,7 @@
         });
 
         $(".apagar").click(function(event) {
-          var apagar = confirm('Deseja realmente excluir este registro?');
+          var apagar = mbox.confirm('Deseja realmente excluir este registro?');
           if (apagar) {
             var id = $(this).attr('id');
             $.ajax({

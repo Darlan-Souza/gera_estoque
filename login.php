@@ -6,6 +6,10 @@ if ($showerros) {
 }
 session_start();
 
+if (!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") {
+  header("Location: https://localhost/gera_estoque/login.php", true, 301);
+  exit;
+}
 ?>
 
 <html>
@@ -99,11 +103,6 @@ session_start();
       </form>
     </div>
   </div>
-
-
-
-
-
 </body>
 
 </html>
